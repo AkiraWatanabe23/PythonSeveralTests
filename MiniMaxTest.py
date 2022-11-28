@@ -220,3 +220,23 @@ class TicTacToe:
         -----
         O|X| 
         """
+
+    #ミニマックスアルゴリズムの実装
+    def is_search_ended(current_tic_tac_toe: TicTacToe, remaining_depth: int) -> bool:
+        #MiniMax による探索が終了している状態かどうかの真偽を取得
+        #parameter...current_tic_tac_toe : TicTacToe...対象の盤面の状態を保持した〇×ゲームのインスタンス
+        #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
+
+        if current_tic_tac_toe.is_player_win:
+            return True
+        if current_tic_tac_toe.is_ai_win:
+            return True
+        if current_tic_tac_toe.is_draw:
+            return True
+        if remaining_depth == 0:
+            return True
+        return False
+        #return bool
+        #探索が終了しているかどうかの真偽
+        #終了していたらTrue
+        #盤面で勝敗が付いている(勝利 or 引き分け), or 指定された探索の木の深さにまで達していたらTrue
