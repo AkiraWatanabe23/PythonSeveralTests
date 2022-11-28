@@ -222,7 +222,9 @@ class TicTacToe:
         """
 
     #ミニマックスアルゴリズムの実装
-    def is_search_ended(current_tic_tac_toe: TicTacToe, remaining_depth: int) -> bool:
+    def is_search_ended(
+        current_tic_tac_toe: TicTacToe, 
+        remaining_depth: int) -> bool:
         #MiniMax による探索が終了している状態かどうかの真偽を取得
         #parameter...current_tic_tac_toe : TicTacToe...対象の盤面の状態を保持した〇×ゲームのインスタンス
         #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
@@ -240,3 +242,53 @@ class TicTacToe:
         #探索が終了しているかどうかの真偽
         #終了していたらTrue
         #盤面で勝敗が付いている(勝利 or 引き分け), or 指定された探索の木の深さにまで達していたらTrue
+
+    def get_maximized_evaluation_value(
+        current_tic_tac_toe: TicTacToe,
+        remaining_depth: int) -> int:
+        #MiniMax における、最大化された評価値の取得
+        #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+        #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
+
+        maximized_evaluation_value: int = -1
+        empty_positions: List[Position] = \
+            current_tic_tac_toe.get_empty_positions()
+        for empty_position in empty_positions:
+            new_tic_tac_toe = current_tic_tac_toe.set_new_mark_and_change_turn(
+                position=empty_position)
+
+            evaluation_value: int = minimax(
+                current_tic_tac_toe = new_tic_tac_toe,
+                maximizing = False,
+                remaining_depth = remaining_depth - 1)
+            maximized_evaluation_value = max(
+                evaluation_value, maximized_evaluation_value)
+
+        return maximized_evaluation_value
+        #return int
+        #最大化された評価値
+
+    def get_minimized_evalution_value(
+        current_tic_tac_toe: TicTacToe,
+        remaining_depth: int) -> int:
+        #MiniMax における、最小化された評価値の取得
+        #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+        #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
+
+        minimized_evalution_value: int = 1
+        empty_positions: List[Position] = \
+            current_tic_tac_toe.get_empty_positions()
+        for empty_position in empty_positions:
+            new_tic_tac_toe = current_tic_tac_toe.set_new_mark_and_change_turn(
+                position=empty_position)
+
+            evalution_value: int = minimax(
+                current_tic_tac_toe = new_tic_tac_toe,
+                maximizing = True,
+                remaining_depth = remaining_depth - 1)
+            minimized_evalution_value = min(
+                evalution_value, minimized_evalution_value)
+
+        return minimized_evalution_value
+        #return int
+        #最小化された評価値
