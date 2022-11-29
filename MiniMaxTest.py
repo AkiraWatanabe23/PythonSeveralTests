@@ -328,6 +328,41 @@ class TicTacToe:
             remaining_depth = remaining_depth,
         )
         return minimized_evaluation_value
-        
+
         #return int
         #MiniMax実行後の評価値
+
+    def find_best_position(
+        current_tic_tac_toe: TicTacToe,
+        max_depth: int) -> Tuple[Position, int]:
+        #空いているマスの中で、最も良い位置をMiniMaxで算出する
+        #空いているマスそれぞれにMiniMaxを実行し、評価値が最大のマスが返却される
+        #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+        #            max_depth : int...探索の木の最大の深さ
+
+        best_evaluation_value: int = -1
+        empty_positions: List[Position] = \
+            current_tic_tac_toe.get_empty_positions()
+        if not empty_positions:
+            raise ValueError("空いているマスがありません")
+            #↑空いているマスがない状態で実行された場合
+        best_position: Position = empty_positions[0]
+        for empty_position in empty_positions:
+            current_loop_tic_tac_toe: TicTacToe = \
+                current_tic_tac_toe.set_new_mark_and_change_turn(
+                    position=empty_position)
+
+            evaluation_value: int = minimax(
+                current_tic_tac_toe = current_loop_tic_tac_toe,
+                maximizing = False,
+                remaining_depth = max_depth)
+
+            if evaluation_value <= best_evaluation_value:
+                continue
+            best_evaluation_value = evaluation_value
+            best_position: Position = empty_position
+        return best_position, best_evaluation_value
+        #return Position
+        #算出されたベストな位置
+        #return int
+        #ベストな位置における評価値の最大値(-1, 0, 1 のいずれか)
