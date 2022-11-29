@@ -366,3 +366,14 @@ class TicTacToe:
         #算出されたベストな位置
         #return int
         #ベストな位置における評価値の最大値(-1, 0, 1 のいずれか)
+
+    #Playerの入力値を取得するための関数
+    def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
+        #Player側のマークの配置の入力を取得
+        #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+
+        is_empty_position: bool = False
+        players_selected_position: Position = Position(index=0)
+        
+        #return Position
+        #Player側が選択したマークの配置位置
