@@ -292,3 +292,42 @@ class TicTacToe:
         return minimized_evalution_value
         #return int
         #最小化された評価値
+
+    def minimax(
+        current_tic_tac_toe: TicTacToe,
+        maximizing: bool,
+        remaining_depth: int) -> int:
+        #MiniMax のアルゴリズムを実行し、結果の評価値を取得
+        #呼び出し後、最大で指定された深さ分再帰的に実行される
+        #※AI側を前提としたコード(マークは×)
+        #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+        #            maximizing : bool...評価値を最大化するかどうかの真偽値(Falseの場合は最小化)
+        #                                次のアクションがPlayer側であればFalse, AI側であればTrueを指定
+        #            remaining_depth : int...探索の木の最大の深さ(多くする程計算に時間がかかる)
+
+        _is_search_ended: bool = is_search_ended(
+            current_tic_tac_toe = current_tic_tac_toe,
+            remaining_depth = remaining_depth)
+
+        if _is_search_ended:
+            #探索が終了する条件(木の末端に達している or 勝敗が付いた場合)
+            #現在の盤面の評価値を返却
+            return current_tic_tac_toe.evaluate()
+
+        #最大化する場合のケース(AI側)
+        if maximizing:
+            maximized_evaluation_value: int = get_maximized_evaluation_value(
+                current_tic_tac_toe = current_tic_tac_toe,
+                remaining_depth = remaining_depth,
+            )
+            return maximized_evaluation_value
+
+        #最小化する場合のケース(Player側)
+        minimized_evaluation_value: int = get_minimized_evaluation_value(
+            current_tic_tac_toe = current_tic_tac_toe,
+            remaining_depth = remaining_depth,
+        )
+        return minimized_evaluation_value
+        
+        #return int
+        #MiniMax実行後の評価値
