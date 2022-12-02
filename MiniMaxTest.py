@@ -428,7 +428,7 @@ def _main():
             current_tic_tac_toe=tic_tac_toe,
             max_depth=8)
         print(
-            f"AIは{ai_selected_position}のインデックスを選択しました"
+            f"AIは {ai_selected_position} のインデックスを選択しました"
             f"（評価値 : {evalution_value}）。")
         tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
             position=ai_selected_position)
