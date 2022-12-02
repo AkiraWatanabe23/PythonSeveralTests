@@ -3,19 +3,20 @@ from typing import List, Tuple
 from enum import Enum
 from copy import deepcopy
 
-#〇×ゲームのマークを管理するクラス
+#〇×ゲーム(TicTacToe)のマークを管理するクラス
+#Markクラスが、Enumを継承している
 class Mark(Enum):
-    # O...〇
-    # X...×
-    # E...empty
+    # O...〇(Player)
+    # X...×(AI)
+    # E...empty(空)
 
     O = 'o'
     X = 'x'
     E = ' '
 
-    #相手側のセルの値を取得
+    #ターンを切り替える関数
     def get_opponent(self) -> Mark:
-        #ターンの切り替えの時に使う
+    #〇→×, ×→〇 にターンを切り替える
         
         if self == Mark.O:
             return Mark.X
@@ -23,6 +24,8 @@ class Mark(Enum):
             return Mark.O
         return Mark.E
 
+    #特殊メソッド「__str__」
+    #オブジェクトの文字列表現(str, print...)を用意した時に以下のルールで出力される(return str)
     def __str__(self) -> str:
         return self.value
 
@@ -38,6 +41,8 @@ class Position:
             raise ValueError('指定されたインデックスが範囲外の値です : %s' % index)
         self.index = index
 
+    #特殊メソッド「__eq__」
+    #演算子「==」を、自分で定義したものに対して使う場合に用いる
     #obj: 比較対象のオブジェクト
     def __eq__(self, obj: object) -> bool:
         #比較結果が
@@ -104,15 +109,18 @@ class TicTacToe:
         #判定したマスが　空ならTrue
 
     #勝利判定のためのタプル
-    #勝利条件に当てはまるラインの通り
+    #勝利条件に当てはまるラインの通りは以下のうちのどれか
     _ConditionPositions = Tuple[Position, Position, Position]
     _CONDITION_POSITIONS: List[_ConditionPositions] = [
+        #横のライン
         (Position(0), Position(1), Position(2)), 
         (Position(3), Position(4), Position(5)), 
         (Position(6), Position(7), Position(8)), 
+        #縦のライン
         (Position(0), Position(3), Position(6)), 
         (Position(1), Position(4), Position(7)), 
         (Position(2), Position(5), Position(8)), 
+        #斜めのライン
         (Position(0), Position(4), Position(8)), 
         (Position(2), Position(4), Position(6)), 
     ]
