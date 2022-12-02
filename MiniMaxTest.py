@@ -379,7 +379,7 @@ def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
         empty_positions: List[Position] = \
             current_tic_tac_toe.get_empty_positions()
         msg: str = (
-            "〇を配置したいマスのインデックスを選択してください"
+            "〇を配置するマスのインデックスを選択してください"
             "(選択可能なインデックス : %s): " % empty_positions
         )
         input_val: str = input(msg)
