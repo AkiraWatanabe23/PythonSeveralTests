@@ -374,6 +374,73 @@ class TicTacToe:
 
         is_empty_position: bool = False
         players_selected_position: Position = Position(index=0)
-        
+        while not is_empty_position:
+            empty_positions: List[Position] = \
+                current_tic_tac_toe.get_empty_positions()
+            msg: str = (
+                "〇を配置したいマスのインデックスを選択してください"
+                "(選択可能なインデックス : %s): " % empty_positions
+            )
+            input_val: str = input(msg)
+
+            try:
+                input_index: int = int(input_val)
+                players_selected_position = Position(index=input_index)
+            except Exception:
+                continue
+            is_empty_position = current_tic_tac_toe.is_empty_position(
+                position=players_selected_position)
+
+        return players_selected_position
         #return Position
         #Player側が選択したマークの配置位置
+
+    #ゲームプレイのための処理
+    def _main():
+        #"〇×ゲームの実行"
+
+        tic_tac_toe: TicTacToe = TicTacToe(turn=Mark.O)
+        while True:
+            
+            #プレイヤー側のマーク配置の制御
+            player_selected_position: Position = \
+                get_player_input_position(current_tic_tac_toe=tic_tac_toe)
+            print("-" * 20)
+            tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
+                position=player_selected_position)
+            
+            if tic_tac_toe.is_player_win:
+                print("プレイヤーの勝利です")
+                print(tic_tac_toe)
+                break
+            if tic_tac_toe.is_draw:
+                print("引き分けです")
+                print(tic_tac_toe)
+                break
+            print(tic_tac_toe)
+
+            #AI側のマーク配置の制御
+            print("AI側でマスを選択中です...")
+            ai_selected_position: Position
+            evalution_value: int
+            ai_selected_position, evalution_value = find_best_position(
+                current_tic_tac_toe=tic_tac_toe,
+                max_depth=8)
+            print(
+                f"AIは{ai_selected_position}のインデックスを選択しました"
+                f"（評価値 : {evalution_value}）。")
+            tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
+                position=ai_selected_position)
+            if tic_tac_toe.is_ai_win:
+                print("AI側が勝利しました")
+                print(tic_tac_toe)
+                break
+            if tic_tac_toe.is_draw:
+                print("引き分けです")
+                print(tic_tac_toe)
+                break
+            print(tic_tac_toe)
+
+    if __name__ == "__main__":
+        _main()
+            
