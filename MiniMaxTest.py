@@ -4,7 +4,7 @@ from enum import Enum
 from copy import deepcopy
 
 #〇×ゲーム(TicTacToe)のマークを管理するクラス
-#Markクラスが、Enumを継承している
+#Markクラスに、列挙型(enum)を定義している
 class Mark(Enum):
     # O...〇(Player)
     # X...×(AI)
@@ -15,6 +15,7 @@ class Mark(Enum):
     E = ' '
 
     #ターンを切り替える関数
+    #self ... インスタンス自身を示すもの
     def get_opponent(self) -> Mark:
     #〇→×, ×→〇 にターンを切り替える
         
@@ -25,7 +26,7 @@ class Mark(Enum):
         return Mark.E
 
     #特殊メソッド「__str__」
-    #オブジェクトの文字列表現(str, print...)を用意した時に以下のルールで出力される(return str)
+    #オブジェクトの文字列表現(str, print...)を用意した時の出力の形を指定する(return str)
     def __str__(self) -> str:
         return self.value
 
@@ -42,7 +43,7 @@ class Position:
         self.index = index
 
     #特殊メソッド「__eq__」(equal)
-    #演算子「==」を、自分で定義したものに対して使う場合に用いる
+    #演算子「==」を、自分で定義したもの(型)に対して使う場合に用いる
     #obj: 比較対象のオブジェクト
     def __eq__(self, obj: object) -> bool:
         #obj の型がPositionで無ければ...False
@@ -53,8 +54,8 @@ class Position:
             return True
         return False
 
-    #特殊メソッド「__repr__」(equal)
-    #文字列からオブジェクトを復元できるような文字列を返す(return str)
+    #特殊メソッド「__repr__」
+    #文字列からオブジェクトを復元できる(型が分かる)ような文字列を返す(return str)
     """
     ex.) print(3), print("3") -> 3
          __repr__ を定義すると↓
