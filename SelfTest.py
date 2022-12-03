@@ -65,14 +65,14 @@ test.output()
 実行結果 -> Hello World!
 """
 
-#注意点
+#注意点↓
 class warns():
-    strA = "Hello Python"
+    strA = "Hello python"
     def __init__(self):
         print(f"1: {self.strA}")
         self.strA = "Hello World!"
         print(f"2: {self.strA}")
-        strA = "Hello Python"
+        strA = "Hello python"
         print(f"3: {self.strA}")
 
 test = warns()
@@ -83,5 +83,10 @@ test = warns()
 """
 
 #1 ... self.strA == クラス変数「strA」であるため、OK
-#2 ... 
-#3 ... 
+#2 ... self.strAがインスタンス変数として扱われ、代入されているので、OK
+#3 ... pythonの仕様として、クラス変数もインスタンス変数も「self.変数名」の形で参照できるが、
+"""
+クラス変数にもインスタンス変数にも値がある場合、インスタンス変数を優先して参照する
+(3 の場合は、コンストラクタ内でstrA(クラス変数)を"Hello python"に変更し、出力しようとしたが
+ この時点でクラス変数「strA」とインスタンス変数「self.strA」の両方に値が存在するため、インスタンス変数「self.strA」が優先して出力される)
+"""
