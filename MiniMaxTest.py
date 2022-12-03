@@ -41,11 +41,11 @@ class Position:
             raise ValueError('指定されたインデックスが範囲外の値です : %s' % index)
         self.index = index
 
-    #特殊メソッド「__eq__」
+    #特殊メソッド「__eq__」(equal)
     #演算子「==」を、自分で定義したものに対して使う場合に用いる
     #obj: 比較対象のオブジェクト
     def __eq__(self, obj: object) -> bool:
-        #比較結果が
+        #obj の型がPositionで無ければ...False
         #obj がPositionクラスで、かつインデックスの値が同じ場合...True
         if not isinstance(obj, Position):
             return False
@@ -53,7 +53,14 @@ class Position:
             return True
         return False
 
-    #文字列に変換した時に表示する値を返す
+    #特殊メソッド「__repr__」(equal)
+    #文字列からオブジェクトを復元できるような文字列を返す(return str)
+    """
+    ex.) print(3), print("3") -> 3
+         __repr__ を定義すると↓
+         print(3) -> 3
+         print("3") -> '3' を出力する
+    """
     def __repr__(self) -> str:
         return repr(self.index)
 
@@ -230,7 +237,7 @@ class TicTacToe:
         O|X| 
         """
 
-#ミニマックスアルゴリズムの実装
+#ミニマックスアルゴリズム(AI側の処理)の実装
 def is_search_ended(
     current_tic_tac_toe: TicTacToe, 
     remaining_depth: int) -> bool:
