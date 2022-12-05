@@ -3,6 +3,7 @@
 class Test:
     #「__init__」pythonにおけるコンストラクタ
     #インスタンスを生成した時に実行される関数
+    #「None」...この関数の戻り値の型(Noneの場合、戻り値なし)
     def __init__(self, name) -> None:
         self.name = name
 
