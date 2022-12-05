@@ -1,5 +1,6 @@
 #Pythonの「self」について記述
 #https://www.sejuku.net/blog/64106
+#https://prograshi.com/language/python/py-self-in-class/
 
 class TestFirst():
     def method(self):
@@ -10,9 +11,20 @@ instance.method()
 """
 実行結果 -> Hello!!
 """
-
-
 #self ... インスタンス自身を示すもの
+"""
+もし、class内で定義したメソッドに引数を1つも渡さなかった場合(使う、使わないに関わらず)
+「TypeError: クラス名.メソッド名() takes 0 positional arguments but 1 was given」
+(メソッドには1つの引数が必須ですが、0個しか渡されていません)というエラーが出る
+
+why?
+pythonでは、クラスをインスタンスとしてから中のdefで定義した関数を呼び出す場合、
+「関数(function)」としてではなく、「メソッド(method)」として呼び出す
+この時、メソッドにはインスタンス自身を引数として渡さなければいけない設定になっているため、
+インスタンス自身が入る引数を渡す必要があるため
+このインスタンス自身を入れる引数に習慣として「self」が使われる
+"""
+
 #使い方 1 :インスタンス変数として参照する
 class TestSecond():
     def __init__(self, strA, strB):
@@ -23,8 +35,7 @@ test = TestSecond("Good", "Morning!")
 print(test.strA)
 print(test.strB)
 """
-実行結果 -> Good
-　　　　    Morning!
+実行結果 -> Good (\n) Morning!
 """
 
 #上記のようにインスタンス(今回は「test」)を生成する時に引数を渡すことで、
@@ -45,8 +56,7 @@ class TestThird():
 test = TestThird("Good", "Afternoon...")
 test.output()
 """
-実行結果 -> Good
-　　　　    Afternoon...
+実行結果 -> Good (\n) Afternoon...
 """
 
 #使い方 3 :クラス継承に使う
@@ -77,9 +87,7 @@ class Warns():
 
 test = Warns()
 """
-実行結果 -> 1: Hello Python
-　　　　　　2: Hello World!
-　　　　　　3: Hello World!
+実行結果 -> 1: Hello Python (\n) 2: Hello World! (\n) 3: Hello World!
 """
 
 #1 ... self.strA == クラス変数「strA」であるため、OK
