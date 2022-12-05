@@ -35,6 +35,7 @@ class Position:
 
     #マスのインデックスを扱う
     #index: int...対象のインデックス(0~8)
+    #特殊メソッド「__init__」...コンストラクタ
     def __init__(self, index: int) -> None:
         index_range: List[int] = list(range(0, 9))
         #範囲外が指定された場合
