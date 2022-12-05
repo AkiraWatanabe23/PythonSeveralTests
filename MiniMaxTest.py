@@ -58,7 +58,7 @@ class Position:
     #特殊メソッド「__repr__」
     #文字列からオブジェクトを復元できる(型が分かる)ような文字列を返す(return str)
     """
-    ex.) print(3), print("3") -> 3
+    ex.) print(3), print("3") -> 3 を出力する
          __repr__ を定義すると↓
          print(3) -> 3
          print("3") -> '3' を出力する
@@ -69,6 +69,7 @@ class Position:
 #ゲームの盤面の状態などを扱うクラス
 class TicTacToe:
 
+    #コンストラクタ...インスタンスを生成した時に、初期値を設定する
     def __init__(self, turn: Mark, marks: List[Mark]=None) -> None:
         #turn: Mark...現在のターンのマーク
         #Mark.O or Mark.X
@@ -240,6 +241,7 @@ class TicTacToe:
         """
 
 #ミニマックスアルゴリズム(AI側の処理)の実装
+####################################################################################
 def is_search_ended(
     current_tic_tac_toe: TicTacToe, 
     remaining_depth: int) -> bool:
@@ -412,6 +414,7 @@ def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
     return players_selected_position
     #return Position
     #Player側が選択したマークの配置位置
+####################################################################################
 
 #ゲームプレイのための処理
 def _main():
