@@ -100,9 +100,16 @@ class Compares:
     #「__eq__」条件分岐などで、「==」(equal)を利用した時に呼び出される
     #return bool...2つのオブジェクトを比較し、同じならTrue, 違ったらFalseを返す
     def __eq__(self, sample) -> bool:
-        return self.name == sample
+        return self.value == sample
 
     #「__ne__」条件分岐などで、「!=」(Not Equal)を利用した時に呼び出される
     #return bool...2つのオブジェクトを比較し、同じならFalse, 違ったらTrueを返す
     def __ne__(self, ne) -> bool:
         return self.value != ne
+
+x = Compares(100)
+y = Compares('100')
+z = Compares(100)
+
+print(x == y) # -> False
+print(x == z) # -> True
