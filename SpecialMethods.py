@@ -1,6 +1,7 @@
 #pythonの特殊メソッド各種について記述
 #https://blog.codecamp.jp/python-class-code
 
+#コンストラクタ
 class Test:
     #「__init__」pythonにおけるコンストラクタ(データの初期化)
     #インスタンスを生成した時に実行される関数
@@ -8,22 +9,11 @@ class Test:
     def __init__(self, name) -> None:
         self.name = name
 
-    #「__eq__」条件分岐などで、「==」を利用した時に呼び出される
-    #return bool...2つのオブジェクトを比較し、同じならTrue, 違ったらFalseを返す
-    def __eq__(self, sample) -> bool:
-        return self.name == sample
-
     def out_put(self):
         print(self.name)
 
-########## 以下は実行処理 ##########
 instance = Test("aaa")
-eq_test = Test("aaa")
-eq_test2 = Test("bbb")
-
 instance.out_put() # -> aaa
-print(instance == eq_test)  # -> True
-print(instance == eq_test2) # -> False
 
 
 #四則演算の特殊メソッド
@@ -100,3 +90,18 @@ a *= 10
 print(a)
 a /= 5
 print(a)
+
+#比較演算子
+class Compares:
+    def __init__(self, value):
+        self.value = value
+
+    #「__eq__」条件分岐などで、「==」(equal)を利用した時に呼び出される
+    #return bool...2つのオブジェクトを比較し、同じならTrue, 違ったらFalseを返す
+    def __eq__(self, sample) -> bool:
+        return self.name == sample
+
+    #「__ne__」条件分岐などで、「!=」(Not Equal)を利用した時に呼び出される
+    #return bool...2つのオブジェクトを比較し、同じならFalse, 違ったらTrueを返す
+    def __ne__(self, ne) -> bool:
+        return self.value != ne
