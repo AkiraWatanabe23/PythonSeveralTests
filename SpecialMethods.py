@@ -26,42 +26,77 @@ print(instance == eq_test)  # -> True
 print(instance == eq_test2) # -> False
 
 
-#計算関連の特殊メソッド
-class Calculation:
+#四則演算の特殊メソッド
+class FourArithmetic:
     #return None の場合、「 -> None」は記述しなくてもよい
     def __init__(self, value):
         self.value = value
 
     #「__add__」足し算(addition)を行う際の演算子「+」を利用した時に呼び出される
-    #return ...2つの値を足した値を返す(同じ型ならOK)
+    #return ...2つの値を足した値を返す
     def __add__(self, ad):
         return self.value + ad.value
 
     #「__sub__」引き算(subtraction)を行う際の演算子「-」を利用した時に呼び出される
-    #return ...「self.value」から「su.value」を引いた値を返す(同じ型ならOK)
+    #return ...「self.value」から「su.value」を引いた値を返す
     def __sub__(self, su):
         return self.value - su.value
 
     #「__mul__」掛け算(multiplication)を行う際の演算子「*」を利用した時に呼び出される
-    #return ...2つの値を掛けた値を返す(同じ型ならOK)
+    #return ...2つの値を掛けた値を返す
     def __mul__(self, mu):
         return self.value * mu.value
 
     #「__truediv__」割り算(division)を行う際の演算子「/」を利用した時に呼び出される
-    #return ...「self.value」を「tr.value」で割った値を返す(同じ型ならOK)
+    #return ...「self.value」を「tr.value」で割った値を返す
     def __truediv__(self, tr):
         return self.value / tr.value
 
-    #「__truediv__」割り算(division)を行う際の演算子「//」を利用した時に呼び出される
-    #return ...「self.value」を「tr.value」で割って、切り捨てた値を返す(同じ型ならOK)
+    #「__floordiv__」割り算(division)を行う際の演算子「//」を利用した時に呼び出される
+    #return ...「self.value」を「fl.value」で割って、切り捨てた値を返す
     def __floordiv__(self, fl):
         return self.value // fl.value
 
-x = Calculation(100.5)
-y = Calculation(20.0)
+x = FourArithmetic(100.5)
+y = FourArithmetic(20)
 
 print(x + y)
 print(x - y)
 print(x * y)
 print(x / y)
 print(x // y)
+
+#「+=」「-=」「*=」「/=」
+class Calculation:
+    def __init__(self, value):
+        self.value = value
+
+    def __iadd__(self, ia):
+        self.value += ia
+        return self.value
+
+    def __isub__(self, isu):
+        self.value -= isu
+        return self.value
+
+    def __imul__(self, im):
+        self.value *= im
+        return self.value
+
+    def __itruediv__(self, it):
+        self.value /= it
+        return self.value
+
+#変数aにCalculation型を代入
+a = Calculation(50)
+print(type(a))
+
+a += 5
+print(type(a))
+print(a)
+a -= 5
+print(a)
+a *= 10
+print(a)
+a /= 5
+print(a)
