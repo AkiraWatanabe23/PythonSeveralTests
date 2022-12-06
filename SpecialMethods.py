@@ -77,12 +77,13 @@ class Calculation:
         self.value /= it
         return self.value
 
-#変数aにCalculation型を代入
 a = Calculation(50)
-print(type(a))
+print(type(a)) # -> class '__main__.Calculation'
+#↑最初の時点で、変数aにはCalculation型が格納されている
 
 a += 5
-print(type(a))
+print(type(a)) # -> class 'int'
+#↑この時点で、Calculation型が格納されていた変数aに、int型が格納されている
 print(a)
 a -= 5
 print(a)
