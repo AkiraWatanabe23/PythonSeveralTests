@@ -16,35 +16,26 @@ instance = Test("aaa")
 instance.out_put() # -> aaa
 
 
-#四則演算の特殊メソッド
+#四則演算(「+」「-」「*」「/」「//」)
 class FourArithmetic:
-    #return None の場合、「 -> None」は記述しなくてもよい
+    #return None の場合や、
+    #複数の種類の型が返ってくることが考えられる(int の時も float の時もある)場合、「 -> xxx」は記述しなくてよい
     def __init__(self, value):
         self.value = value
 
-    #「__add__」足し算(addition)を行う際の演算子「+」を利用した時に呼び出される
-    #return ...2つの値を足した値を返す
-    def __add__(self, ad):
+    def __add__(self, ad): #足し算(addition)
         return self.value + ad.value
 
-    #「__sub__」引き算(subtraction)を行う際の演算子「-」を利用した時に呼び出される
-    #return ...「self.value」から「su.value」を引いた値を返す
-    def __sub__(self, su):
+    def __sub__(self, su): #引き算(subtraction)
         return self.value - su.value
 
-    #「__mul__」掛け算(multiplication)を行う際の演算子「*」を利用した時に呼び出される
-    #return ...2つの値を掛けた値を返す
-    def __mul__(self, mu):
+    def __mul__(self, mu): #掛け算(multiplication)
         return self.value * mu.value
 
-    #「__truediv__」割り算(division)を行う際の演算子「/」を利用した時に呼び出される
-    #return ...「self.value」を「tr.value」で割った値を返す
-    def __truediv__(self, tr):
+    def __truediv__(self, tr): #割り算(division)
         return self.value / tr.value
 
-    #「__floordiv__」割り算(division)を行う際の演算子「//」を利用した時に呼び出される
-    #return ...「self.value」を「fl.value」で割って、切り捨てた値を返す
-    def __floordiv__(self, fl):
+    def __floordiv__(self, fl): #割り算(division) ※切り捨て
         return self.value // fl.value
 
 x = FourArithmetic(100.5)
@@ -97,13 +88,11 @@ class Compares:
     def __init__(self, value):
         self.value = value
 
-    #「__eq__」条件分岐などで、「==」(Equal)を利用した時に呼び出される
-    #return bool...2つのオブジェクトを比較し、同じならTrue, 違ったらFalseを返す
+    #「__eq__」条件分岐などで、「==」(Equal)を利用した時に呼び出される(return bool)
     def __eq__(self, sample) -> bool:
         return self.value == sample
 
-    #「__ne__」条件分岐などで、「!=」(Not Equal)を利用した時に呼び出される
-    #return bool...2つのオブジェクトを比較し、同じならFalse, 違ったらTrueを返す
+    #「__ne__」条件分岐などで、「!=」(Not Equal)を利用した時に呼び出される(return bool)
     def __ne__(self, ne) -> bool:
         return self.value != ne
 

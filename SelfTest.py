@@ -7,10 +7,8 @@ class TestFirst():
         print("Hello!!")
 
 instance = TestFirst()
-instance.method()
+instance.method() # -> Hello!!
 """
-実行結果 -> Hello!!
-
 self ... インスタンス自身を示すもの
 
 もし、class内で定義したメソッドに引数を1つも渡さなかった場合(使う、使わないに関わらず)
@@ -32,12 +30,10 @@ class TestSecond():
         self.strB = strB
 
 test = TestSecond("Good", "Morning!")
-print(test.strA)
-print(test.strB)
+print(test.strA) # -> Good
+print(test.strB) # -> Morning!
 
 """
-実行結果 -> Good (\n) Morning!
-
 上記のようにインスタンス(今回は「test」)を生成する時に引数を渡すことで、
 selfを使ってインスタンス変数として代入することができる
 ※呼び出す側は引数として値を入れない
@@ -55,10 +51,7 @@ class TestThird():
         print(self.strB)
 
 test = TestThird("Good", "Afternoon...")
-test.output()
-"""
-実行結果 -> Good (\n) Afternoon...
-"""
+test.output() # -> Good (\n) Afternoon...
 
 #使い方 3 :クラス継承に使う
 #selfはクラス変数として参照できるため、クラスを継承した時にも参照することができる
@@ -71,25 +64,20 @@ class Fifth(Forth):
         print(self.strA)
 
 test = Fifth()
-test.output()
-"""
-実行結果 -> Hello World!
-"""
+test.output() # -> Hello World!
 
 #注意点↓
 class Warns():
     strA = "Hello python"
     def __init__(self):
-        print(f"1: {self.strA}")
+        print(f"1: {self.strA}") # -> 1: Hello Python
         self.strA = "Hello World!"
-        print(f"2: {self.strA}")
+        print(f"2: {self.strA}") # -> 2: Hello World!
         strA = "Hello python"
-        print(f"3: {self.strA}")
+        print(f"3: {self.strA}") # -> 3: Hello World!
 
 test = Warns()
 """
-実行結果 -> 1: Hello Python (\n) 2: Hello World! (\n) 3: Hello World!
-
 1 ... self.strA == クラス変数「strA」であるため、OK
 2 ... self.strAがインスタンス変数として扱われ、代入されているので、OK
 3 ... pythonの仕様として、クラス変数もインスタンス変数も「self.変数名」の形で参照できるが
