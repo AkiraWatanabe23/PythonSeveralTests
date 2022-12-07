@@ -97,7 +97,7 @@ class Compares:
     def __init__(self, value):
         self.value = value
 
-    #「__eq__」条件分岐などで、「==」(equal)を利用した時に呼び出される
+    #「__eq__」条件分岐などで、「==」(Equal)を利用した時に呼び出される
     #return bool...2つのオブジェクトを比較し、同じならTrue, 違ったらFalseを返す
     def __eq__(self, sample) -> bool:
         return self.value == sample
