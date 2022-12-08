@@ -3,10 +3,10 @@
 #https://qiita.com/mtb_beta/items/d257519b018b8cd0cc2e
 
 #以下でデコレーター関数を定義(デコレーター関数内で関数を定義して使用する)
-def decorate(func_base):
+def decorate(func_base): # <- func_base には、デコレートする関数(今回は「func()」)が引数に入る
     def in_decolate():
         print('check')
-        func_base()
+        func_base() # <- ここでデコレートする関数の処理を実行する
     return in_decolate
 
 #デコレーターを指定
