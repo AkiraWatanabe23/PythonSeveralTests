@@ -1,12 +1,13 @@
 #Python「self」について記述
 #https://www.sejuku.net/blog/64106
 #https://prograshi.com/language/python/py-self-in-class/
+#https://python.ms/class/
 
-class TestFirst():
+class SelfBase():
     def method(self):
         print("Hello!!")
 
-instance = TestFirst()
+instance = SelfBase()
 instance.method() # -> Hello!!
 """
 self ... インスタンス自身を示すもの
@@ -24,23 +25,25 @@ pythonでは、クラスをインスタンスとしてから中のdefで定義�
 """
 
 #使い方 1 :インスタンス変数として参照する
-class TestSecond():
+class Instance():
     def __init__(self, strA, strB):
         self.strA = strA
         self.strB = strB
 
-test = TestSecond("Good", "Morning!")
+test = Instance("Good", "Morning!") #ここでインスタンス化している(インスタンス変数)
 print(test.strA) # -> Good
 print(test.strB) # -> Morning!
 """
 上記のようにインスタンス(今回は「test」)を生成する時に引数を渡すことで、
 selfを使ってインスタンス変数として代入することができる
-※呼び出す側は引数として値を入れない
+※呼び出す側は(selfにあたる部分には)引数として値を入れない
 """
 
 #使い方 2 :クラス変数として参照する
 #以下のように、クラス変数として別のメソッドで使うことができる
-class TestThird():
+class ClassVariable():
+    name = 'Name'
+
     def __init__(self, strA, strB):
         self.strA = strA
         self.strB = strB
@@ -49,20 +52,23 @@ class TestThird():
         print(self.strA)
         print(self.strB)
 
-test = TestThird("Good", "Afternoon...")
+test = ClassVariable("Good", "Afternoon...") #インスタンス化
+#クラス内の関数を呼び出す
 test.output() # -> Good (\n) Afternoon...
+#クラス変数を出力する
+print(test.name) # -> Name
 
 #使い方 3 :クラス継承に使う
 #selfはクラス変数として参照できるため、クラスを継承した時にも参照することができる
-class Forth():
+class TestBase():
     def __init__(self):
         self.strA = "Hello World!"
 
-class Fifth(Forth):
+class Inheritance(TestBase):
     def output(self):
         print(self.strA)
 
-test = Fifth()
+test = Inheritance()
 test.output() # -> Hello World!
 
 #注意点↓

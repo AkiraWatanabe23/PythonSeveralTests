@@ -15,7 +15,7 @@ class Hoge:
 
     def dump_instance(self):
         print("インスタンス変数: ", self.id)
-
+        
 
 if __name__ == "__main__":
     Hoge.dump_class()  # -> 0
