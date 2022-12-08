@@ -1,7 +1,6 @@
 #Python「self」について記述
 #https://www.sejuku.net/blog/64106
 #https://prograshi.com/language/python/py-self-in-class/
-#https://python.ms/class/
 
 class SelfBase():
     def method(self):
@@ -64,6 +63,7 @@ class TestBase():
     def __init__(self):
         self.strA = "Hello World!"
 
+#↓クラス定義時に、()内にクラス名を記述することで継承することができる
 class Inheritance(TestBase):
     def output(self):
         print(self.strA)
@@ -79,16 +79,17 @@ class Warns():
         print(f"1: {self.strA}") # -> 1: Hello Python
         self.strA = "Hello World!"
         print(f"2: {self.strA}") # -> 2: Hello World!
-        strA = "Hello python"
+        strA = "Hello everyone"
         print(f"3: {self.strA}") # -> 3: Hello World!
 
 test = Warns()
 """
-1 ... self.strA はクラス変数「strA」であるため、OK
-2 ... self.strA がインスタンス変数として扱われ、代入されている (l.74) ので、OK
-3 ... python の仕様として、クラス変数もインスタンス変数も「self.変数名」の形で参照できるが
+1 ... self.strA はクラス変数「strA」を参照している
+2 ... self.strA がインスタンス変数として扱われ、代入されている (l.80)
+3 ... python の仕様として、「self.変数名」の形でクラス変数もインスタンス変数も参照できるが、
 
 同じ名前のクラス変数とインスタンス変数があり、両方に値がある場合、インスタンス変数を優先して参照する
-(3 の場合は、コンストラクタ内でstrA(クラス変数)を"Hello python"に変更し、出力しようとしたが
- この時点でクラス変数「strA」とインスタンス変数「self.strA」の両方に値が存在するため、インスタンス変数「self.strA」が優先して出力される)
+(3 の場合は、コンストラクタ内でstrA(クラス変数)を"Hello everyone"に変更し、出力しようとしたが
+ この時点でクラス変数「strA」とインスタンス変数「self.strA」の両方に値が存在するため、
+ インスタンス変数「self.strA」("Hello World!")が優先して出力される)
 """
