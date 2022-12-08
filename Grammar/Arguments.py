@@ -1,44 +1,3 @@
-#色々テストしたいことをここでやる
-
-##############################
-#インスタンス化の注意点
-#https://python.ms/class/
-class Animal:
-    #クラス変数
-    att = "dog"
-    name = None
-
-    def honk(self):
-        print('bowwow')
-
-    def bark(self):
-        print('woof')
-
-instance = Animal() #インスタンス化
-instance.honk() # -> bowwow
-instance.bark() # -> woof
-
-instance.name = "cat" #インスタンス化した変数からクラス変数を参照している(Animalクラスのnameの値は変更されない)
-print(Animal.name) # -> None
-Animal.name = "pig" #Animalクラスのクラス変数「name」を直接参照している(Animalクラスのnameの値が変更されている)
-print(instance.name) # -> cat
-print(Animal.name) # -> pig
-
-"""
-※注意事項
-
-instance = Animal
-instance.honk()
-instance.bark()
-と記述した場合、実行時にエラーが発生する
-(この時、コードを記述した時点ではエラーを起こさないため、注意!!)
-エラーメッセージ↓
-TypeError: Animal.honk() missing 1 required positional argument: 'self'
-(honk()に必要な引数「self」がありません)
-"""
-##############################
-
-##############################
 #引数の参照渡し、値渡しについて
 #https://www.javadrive.jp/python/userfunc/index3.html
 
@@ -95,24 +54,3 @@ pass_by_refarence(a) # -> [10, 20]
 #                      -> [15, 20]
 print(a)             # -> [15, 20] ... 呼び出し元の変数の値が変更されている
 #上記のように、参照渡しの挙動をする
-##############################
-
-##############################
-#デコレーター関数...関数を修飾し、新しい関数を作成するもの(関数に付加機能を付けられる)
-#　　　　　　　　   複数の関数に対して同じ機能を付けたい時に使う
-#https://qiita.com/mtb_beta/items/d257519b018b8cd0cc2e
-
-#以下でデコレーター関数を定義(デコレーター関数内で関数を定義して使用する)
-def decorate(func_base):
-    def in_decolate():
-        print('check')
-        func_base()
-    return in_decolate
-
-#デコレーターを指定
-@decorate
-def func():
-    print('decorate')
-
-func() # -> check (\n) decorate
-##############################
