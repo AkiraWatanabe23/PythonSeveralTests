@@ -1,12 +1,14 @@
+name = 'aaa'
+
 print('こんにちは')
-print("あなたの名前を教えてください")
+print(f"Your name is {name}, right? \n Please answer with 'yes' or 'no'.")
 
-name = input()
-print(f"あなたの名前は{name}ですか?\n はい か いいえ で答えてください")
-
+#以下のように記述することで、変数の型を指定することができる
 call: str = input()
 
-if call is "はい":
-    print(f"{name}さん、よろしくお願いします")
-elif call is "いいえ":
-    print("もう一度名前を教えてください")
+if call == "yes":
+    print(f"{name}, Nice to meet you.")
+elif call == "no":
+    print("Sorry, please tell me your name again.")
+else:
+    print("Please answer with 'yes' or 'no'.")

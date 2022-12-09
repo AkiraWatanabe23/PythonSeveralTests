@@ -33,7 +33,6 @@ def base(get): # <- get...関数デコレータの引数(「@...」の時に設�
 
         #def wrap(): ... 実際の処理を記述する
         def wrap(*args, **kwargs):
-            #    ↑可変長引数(Argument.py に記述)
             
             x = func(*args, **kwargs)
             return f"<{get}> {x} </{get}>" # <- wrap()のreturn

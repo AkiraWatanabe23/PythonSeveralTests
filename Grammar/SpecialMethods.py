@@ -9,11 +9,11 @@ class Test:
     def __init__(self, name) -> None:
         self.name = name
 
-    def out_put(self):
+    def output(self):
         print(self.name)
 
 instance = Test("aaa")
-instance.out_put() # -> aaa
+instance.output() # -> aaa
 
 
 #四則演算(「+」「-」「*」「/」「//」)
