@@ -3,7 +3,7 @@
 #https://prograshi.com/language/python/py-self-in-class/
 
 class SelfBase():
-    def method(self):
+    def method(self): #def(関数)...definition
         print("Hello!!")
 
 instance = SelfBase()

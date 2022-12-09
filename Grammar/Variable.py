@@ -5,7 +5,7 @@ class Hoge:
     #クラス変数...クラス定義直下で定義された変数
     id = 0
 
-    @classmethod #「@」は、デコレーター関数であることを示す記号(SeveralTestsで記述)
+    @classmethod
     def dump_class(cls):
         print("クラス変数: ", cls.id)
 
