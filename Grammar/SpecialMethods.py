@@ -19,7 +19,7 @@ instance.out_put() # -> aaa
 #四則演算(「+」「-」「*」「/」「//」)
 class FourArithmetic:
     #return None の場合や、
-    #複数の種類の型が返ってくることが考えられる(int の時も float の時もある)場合、「 -> xxx」は記述しなくてよい
+    #複数の種類の型が返ってくることが考えられる(int の時も float の時もある)ような場合、「 -> xxx」は記述しなくてよい
     def __init__(self, value):
         self.value = value
 

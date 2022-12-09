@@ -3,17 +3,16 @@
 #https://qiita.com/mtb_beta/items/d257519b018b8cd0cc2e
 #https://zenn.dev/ryo_kawamata/articles/learn_decorator_in_python
 
-#以下で関数デコレータを定義(関数デコレータ内で関数を定義する)
+#以下のように関数デコレータを定義(関数デコレータ内で関数を定義する)
 #ex.1)
-def decorator(func_base): # <- func_base には、デコレートする関数(今回は「func()」)が入る
+def decorator(func_base): # <- 引数には、デコレートする関数(今回は「func()」)が入る
     def in_decolate():
         print('check')
         func_base() # <- ここでデコレートする関数[func()]の処理を実行する
     return in_decolate # <- 処理を実行した後に関数を返す
 
-#デコレーターを指定
-#↓「decorator」という関数デコレータ内で
-# 以下の関数(「func()」)をデコレート(装飾)する、という意味
+#↓ @decorator...「decorator」という関数デコレータ内で
+# 下記の関数(「func()」)をデコレート(装飾)する、という意味
 @decorator
 def func():
     print('decorate')
