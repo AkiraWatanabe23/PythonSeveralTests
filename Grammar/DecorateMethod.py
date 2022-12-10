@@ -32,7 +32,7 @@ def base(get): # <- get...関数デコレータの引数(「@...」の時に設�
     def child(func): # <- func...デコレートする関数
 
         #def wrap(): ... 実際の処理を記述する
-        def wrap(*args, **kwargs):
+        def wrap(*args, **kwargs): # <- ここには、「func()」の引数が入る
             
             x = func(*args, **kwargs)
             return f"<{get}> {x} </{get}>" # <- wrap()のreturn
