@@ -73,22 +73,24 @@ test.output() # -> Hello World!
 
 #注意点↓
 class Warns():
+    #クラス変数
     strA = "Hello python"
 
     def __init__(self):
-        print(f"1: {self.strA}") # -> 1: Hello Python
+        print(f"1: {self.strA}") # -> 1: Hello Python (クラス変数「strA」を参照)
+        #インスタンス変数
         self.strA = "Hello World!"
-        print(f"2: {self.strA}") # -> 2: Hello World!
+        print(f"2: {self.strA}") # -> 2: Hello World! (インスタンス変数「self.strA」を参照)
         strA = "Hello everyone"
-        print(f"3: {self.strA}") # -> 3: Hello World!
+        print(f"3: {self.strA}") # -> 3: Hello World! (インスタンス変数「self.strA」を参照)
 
 test = Warns()
-"""
-1 ... self.strA はクラス変数「strA」を参照している
-2 ... self.strA がインスタンス変数として扱われ、代入されている (l.80)
-3 ... python の仕様として、「self.変数名」の形でクラス変数もインスタンス変数も参照できるが、
 
+"""
+3: の実行結果について
+python の仕様として、「self.変数名」の形でクラス変数もインスタンス変数も参照できるが、
 同じ名前のクラス変数とインスタンス変数があり、両方に値がある場合、インスタンス変数を優先して参照する
+
 (3 の場合は、コンストラクタ内でstrA(クラス変数)を"Hello everyone"に変更し、出力しようとしたが
  この時点でクラス変数「strA」とインスタンス変数「self.strA」の両方に値が存在するため、
  インスタンス変数「self.strA」("Hello World!")が優先して出力される)
