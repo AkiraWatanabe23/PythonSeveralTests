@@ -41,11 +41,11 @@ class FourArithmetic:
 x = FourArithmetic(100.5)
 y = FourArithmetic(20)
 
-print(x + y)
-print(x - y)
-print(x * y)
-print(x / y)
-print(x // y)
+print(x + y) # -> 120.5
+print(x - y) # -> 80.5
+print(x * y) # -> 2010.0
+print(x / y) # -> 5.025
+print(x // y)# -> 5.0
 
 #「+=」「-=」「*=」「/=」
 class Calculation:
@@ -75,13 +75,13 @@ print(type(a)) # -> class '__main__.Calculation'
 a += 5
 print(type(a)) # -> class 'int'
 #↑この時点で、Calculation型が格納されていた変数aに、int型が格納されている
-print(a)
+print(a) # -> 55
 a -= 5
-print(a)
+print(a) # -> 50
 a *= 10
-print(a)
+print(a) # -> 500
 a /= 5
-print(a)
+print(a) # -> 100.0
 
 #比較演算子
 class Compares:

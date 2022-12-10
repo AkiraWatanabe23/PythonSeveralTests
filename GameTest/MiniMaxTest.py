@@ -4,7 +4,7 @@ from enum import Enum
 from copy import deepcopy
 
 #〇×ゲーム(TicTacToe)のマークを管理するクラス
-#Markクラスに、列挙型(enum)を定義している
+#Markクラスに、列挙型(enum)を継承している
 class Mark(Enum):
     # O...〇(Player)
     # X...×(AI)
