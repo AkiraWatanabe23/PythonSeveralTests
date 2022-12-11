@@ -10,6 +10,7 @@ class Mark(Enum):
     # X...×(AI)
     # E...empty(空)
 
+    #↓ゲーム内で必要なマークをEnumで管理
     O = 'o'
     X = 'x'
     E = ' '
@@ -17,7 +18,6 @@ class Mark(Enum):
     #ターンを切り替える関数
     #self ... インスタンス自身を示すもの
     def get_opponent(self) -> Mark:
-    #〇→×, ×→〇 にターンを切り替える
         
         if self == Mark.O:
             return Mark.X
@@ -84,8 +84,8 @@ class TicTacToe:
         #以下の文の「deepcopy()」について、まとめる
         new_marks: List[Mark] = deepcopy(self.marks)
         new_marks[position.index] = self._turn
+        #↓ここでターンの切り替えを行う
         new_turn: Mark = self._turn.get_opponent()
-        #↓この変数で、インスタンス化を行っている
         new_tic_tac_toe: TicTacToe = TicTacToe(turn=new_turn, marks=new_marks)
         return new_tic_tac_toe
 
@@ -129,6 +129,7 @@ class TicTacToe:
     ]
 
     #以下は勝利判定用の処理
+    #「@xxx」は、関数デコレータ...関数をデコレート(装飾)する
     @property
     def is_player_win(self) -> bool:
         #プレイヤーが勝利したか
@@ -224,7 +225,7 @@ class TicTacToe:
         return info
         #return str
         #現在の各マスの内容を可視化した文字列
-        #以下のようなフォーマットで設定される
+        #以下のようなフォーマットで出力される
         """
         O| |X
         -----
@@ -410,10 +411,11 @@ def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
 ####################################################################################
 
 #ゲームプレイのための処理
-def _main():
+def main():
     #"〇×ゲームの実行"
-
+    #クラス変数を宣言(最初はPlayer側から始める)
     tic_tac_toe: TicTacToe = TicTacToe(turn=Mark.O)
+
     while True:
         
         #プレイヤー側のマーク配置の制御
@@ -456,5 +458,5 @@ def _main():
         print(tic_tac_toe)
 
 if __name__ == "__main__":
-    _main()
+    main()
             
