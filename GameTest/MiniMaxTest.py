@@ -25,8 +25,6 @@ class Mark(Enum):
             return Mark.O
         return Mark.E
 
-    #特殊メソッド「__str__」
-    #オブジェクトの文字列表現(str, print...)を用意した時の出力の形を指定する(return str)
     def __str__(self) -> str:
         return self.value
 
@@ -35,7 +33,6 @@ class Position:
 
     #マスのインデックスを扱う
     #index: int...対象のインデックス(0~8)
-    #特殊メソッド「__init__」...コンストラクタ
     def __init__(self, index: int) -> None:
         index_range: List[int] = list(range(0, 9))
         #範囲外が指定された場合
@@ -43,20 +40,13 @@ class Position:
             raise ValueError('指定されたインデックスが範囲外の値です : %s' % index)
         self.index = index
 
-    #特殊メソッド「__eq__」(equal)
-    #演算子「==」を、自分で定義したもの(型)に対して使う場合に用いる
-    #obj: 比較対象のオブジェクト
     def __eq__(self, obj: object) -> bool:
-        #obj の型がPositionで無ければ...False
-        #obj がPositionクラスで、かつインデックスの値が同じ場合...True
         if not isinstance(obj, Position):
             return False
         if self.index == obj.index:
             return True
         return False
 
-    #特殊メソッド「__repr__」
-    #文字列からオブジェクトを復元できる(型が分かる)ような文字列を返す(return str)
     """
     ex.) print(3), print("3") -> 3 を出力する
          __repr__ を定義すると↓
@@ -73,10 +63,10 @@ class TicTacToe:
     def __init__(self, turn: Mark, marks: List[Mark]=None) -> None:
         #turn: Mark...現在のターンのマーク
         #Mark.O or Mark.X
-
         #marks: list of Mark, default None
         #現在各マスに設定されているマークのリスト(0~8のインデックスで設定)
 
+        #最初に空の盤面を設定する
         if marks is None:
             marks = [Mark.E] * 9
         self._turn = turn
