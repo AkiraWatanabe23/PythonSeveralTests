@@ -60,6 +60,7 @@ class Position:
 class TicTacToe:
 
     #コンストラクタ...インスタンスを生成した時に、初期値を設定する
+    #ここでは、ゲームの初期設定を行う(盤面や、手番)
     def __init__(self, turn: Mark, marks: List[Mark]=None) -> None:
         #turn: Mark...現在のターンのマーク
         #Mark.O or Mark.X
@@ -73,16 +74,18 @@ class TicTacToe:
         self.marks = marks
 
     def set_new_mark_and_change_turn(self, position: Position) -> TicTacToe:
-        #特定のマスに〇 or × のマークを設定する
+        #選んだマスに〇 or × のマークを設定する
 
         current_mark: Mark = self.marks[position.index]
         #選択したマスがEmptyでは無かったら(既に埋まっていたら)
         if current_mark != Mark.E:
             raise ValueError('対象のマスにはすでにマークがあります')
 
+        #以下の文の「deepcopy()」について、まとめる
         new_marks: List[Mark] = deepcopy(self.marks)
         new_marks[position.index] = self._turn
         new_turn: Mark = self._turn.get_opponent()
+        #↓この変数で、インスタンス化を行っている
         new_tic_tac_toe: TicTacToe = TicTacToe(turn=new_turn, marks=new_marks)
         return new_tic_tac_toe
 
