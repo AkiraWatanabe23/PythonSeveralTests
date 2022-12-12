@@ -81,7 +81,7 @@ class TicTacToe:
         if current_mark != Mark.E:
             raise ValueError('対象のマスにはすでにマークがあります')
 
-        #以下の文の「deepcopy()」について、まとめる
+        #「copy, deepcopy」...List等のオブジェクトを「値渡し」で参照したい場合に使うもの
         new_marks: List[Mark] = deepcopy(self.marks)
         new_marks[position.index] = self._turn
         #↓ここでターンの切り替えを行う
