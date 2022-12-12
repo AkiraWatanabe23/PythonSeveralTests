@@ -97,3 +97,39 @@ python の仕様として、「self.変数名」の形でクラス変数もイ�
  この時点でクラス変数「strA」とインスタンス変数「self.strA」の両方に値が存在するため、
  インスタンス変数「self.strA」("Hello World!")が優先して出力される)
 """
+
+#合わせて理解したい ... 「cls」
+"""
+cls ... クラス自身を示すもの
+        「@classmethod」デコレータをつけたメソッド(クラスメソッド)の第一引数として扱うもの
+
+self とは何が違うのか?
+→ self ... クラス全体のインスタンスを示す
+  cls  ... そのクラスのみを示す
+"""
+
+class CLSTest:
+    name = "Mary"
+
+    def __init__(self, word):
+        self.word = word
+
+    def call_name(self):
+        print(f"My name is {self.word}.")
+
+    @classmethod
+    def ask_name(cls):
+        print(f"Yoour name is {cls.name}, right?")
+
+ins_f = CLSTest("Mike")
+ins_s = CLSTest("Tony")
+
+ins_f.call_name() # -> My name is Mike.
+ins_s.call_name() # -> My name is Tony.
+#cal_name()はインスタンスメソッドであり、selfはそれぞれのインスタンスを示すものであるため
+#それぞれのインスタンスの値で出力される
+
+ins_f.ask_name()  # -> Yoour name is Mary, right?
+ins_s.ask_name()  # -> Yoour name is Mary, right?
+#ask_name()はクラスメソッドであり、clsはクラスそのものを示すため
+#クラス変数である name = "Mary" が参照され、出力された
