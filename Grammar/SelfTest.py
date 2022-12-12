@@ -1,6 +1,7 @@
 #Python「self」について記述
 #https://www.sejuku.net/blog/64106
 #https://prograshi.com/language/python/py-self-in-class/
+#https://blog.pyq.jp/entry/python_kaiketsu_220720
 
 class SelfBase():
     def method(self): #def(関数)...definition
@@ -9,7 +10,8 @@ class SelfBase():
 instance = SelfBase()
 instance.method() # -> Hello!!
 """
-self ... インスタンス自身を示すもの
+self ... そのクラスの現在のインスタンスを示すもの
+         クラス内に定義した関数(インスタンスメソッド)の第一引数として扱うもの
 
 もし、class内で定義したメソッドに引数を1つも渡さなかった場合(使う、使わないに関わらず)
 「TypeError: クラス名.メソッド名() takes 0 positional arguments but 1 was given」
