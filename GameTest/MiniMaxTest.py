@@ -16,7 +16,6 @@ class Mark(Enum):
     E = ' '
 
     #ターンを切り替える関数
-    #self ... インスタンス自身を示すもの
     def get_opponent(self) -> Mark:
         
         if self == Mark.O:
@@ -59,12 +58,11 @@ class Position:
 #ゲームの盤面の状態などを扱うクラス
 class TicTacToe:
 
-    #コンストラクタ...インスタンスを生成した時に、初期値を設定する
-    #ここでは、ゲームの初期設定を行う(盤面や、手番)
+    #ゲームの初期設定を行うコンストラクタ(盤面や、手番)
     def __init__(self, turn: Mark, marks: List[Mark]=None) -> None:
         #turn: Mark...現在のターンのマーク
         #Mark.O or Mark.X
-        #marks: list of Mark, default None
+        #marks: Mark型のList, 最初は空の状態
         #現在各マスに設定されているマークのリスト(0~8のインデックスで設定)
 
         #最初に空の盤面を設定する
@@ -77,11 +75,11 @@ class TicTacToe:
         #選んだマスに〇 or × のマークを設定する
 
         current_mark: Mark = self.marks[position.index]
-        #選択したマスがEmptyでは無かったら(既に埋まっていたら)
+        #選択したマスがEmptyではなかったら(既に埋まっていたら)
         if current_mark != Mark.E:
             raise ValueError('対象のマスにはすでにマークがあります')
 
-        #「copy, deepcopy」...List等のオブジェクトを「値渡し」で参照したい場合に使うもの
+        #「copy, deepcopy」...List等の変更可能なオブジェクトを「値渡し」で参照したい場合に使うもの
         new_marks: List[Mark] = deepcopy(self.marks)
         new_marks[position.index] = self._turn
         #↓ここでターンの切り替えを行う
@@ -90,30 +88,37 @@ class TicTacToe:
         return new_tic_tac_toe
 
     def get_empty_positions(self) -> List[Position]:
-        #空いているマスの位置のリストを取得
+        #空いているマスのリストを取得
 
         empty_positions: List[Position] = []
         for index, mark in enumerate(self.marks):
+            #確認するマスがEmptyではなかったら
             if mark != Mark.E:
+                #無視して次のループに入る
                 continue
+            #EmptyだったマスのインデックスのみをListに格納する
             empty_positions.append(Position(index=index))
         return empty_positions
         #return empty_positions : list of Position
-        #空いているマスの位置のリスト
+        #空いているマスのリスト
 
     def is_empty_position(self, position: Position) -> bool:
         #parameter...position: Position...判定対象の位置
+
+        #空のマスのListを取得
         empty_positions: List[Position] = self.get_empty_positions()
-        for empty_position in empty_positions:
-            if position == empty_position:
-                return True
+
+        #もし選択したマスが空だったらそのマスに置くことができる
+        if position in empty_positions:
+            return True
         return False
         #return bool
         #判定したマスが　空ならTrue
 
     #勝利判定のためのタプル
-    #勝利条件に当てはまるラインの通りは以下のうちのどれか
+    #勝利条件に当てはまるラインの通りは以下のうちのどれかである
     _ConditionPositions = Tuple[Position, Position, Position]
+    #以下のように、アンダースコアと大文字のみで変数を宣言すると、その変数は自動的に「定数(constant)」になる
     _CONDITION_POSITIONS: List[_ConditionPositions] = [
         #横のライン
         (Position(0), Position(1), Position(2)), 
@@ -134,7 +139,7 @@ class TicTacToe:
     def is_player_win(self) -> bool:
         #プレイヤーが勝利したか
 
-        return self._is_target_mark_win(mark=Mark.O)
+        return self.is_target_mark_win(mark=Mark.O)
         #return bool
         #プレイヤーが勝利しているかどうか
 
@@ -142,18 +147,20 @@ class TicTacToe:
     def is_ai_win(self) -> bool:
         #AIが勝利したか
 
-        return self._is_target_mark_win(mark=Mark.X)
+        return self.is_target_mark_win(mark=Mark.X)
         #return bool
         #AIが勝利しているかどうか
 
-    def _is_target_mark_win(self, mark: Mark) -> bool:
+    def is_target_mark_win(self, mark: Mark) -> bool:
         #指定されたマーク側が勝利しているかのbool
         #parameter...mark : Mark...判定対象のマーク
 
-        for condition_positions in self._CONDITION_POSITIONS:
+        for condition_position in self._CONDITION_POSITIONS:
+            #以下の「\」は、1行では書ききれない長い行を改行する時に、
+            #次の行の内容も同じ行の処理であることを示す記号
             condition_satisfied: bool = \
-                self._is_condition_satisfied_positions(
-                    condition_positions=condition_positions,
+                self.is_condition_satisfied_positions(
+                    condition_positions=condition_position,
                     target_mark=mark)
 
             if condition_satisfied:
@@ -162,7 +169,7 @@ class TicTacToe:
         #return bool
         #勝利していたら、True
 
-    def _is_condition_satisfied_positions(
+    def is_condition_satisfied_positions(
         self, condition_positions: _ConditionPositions,
         target_mark: Mark) -> bool:
         #勝利条件を満たしている位置の組み合わせが存在するか(bool)
@@ -319,11 +326,11 @@ def minimax(
     #                                次のアクションがPlayer側であればFalse, AI側であればTrueを指定
     #            remaining_depth : int...探索の木の最大の深さ(多くする程計算に時間がかかる)
 
-    _is_search_ended: bool = is_search_ended(
+    is_search_ended: bool = is_search_ended(
         current_tic_tac_toe=current_tic_tac_toe,
         remaining_depth=remaining_depth)
 
-    if _is_search_ended:
+    if is_search_ended:
         #探索が終了する条件(木の末端に達している or 勝敗が付いた場合)
         #現在の盤面の評価値を返却
         return current_tic_tac_toe.evaluate()
@@ -459,4 +466,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-            
