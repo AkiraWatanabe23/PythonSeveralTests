@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import List, Tuple
 from enum import Enum
 from copy import deepcopy
+import AISearch
 
 #〇×ゲーム(TicTacToe)のマークを管理するクラス
 #Markクラスに、列挙型(enum)を継承している
