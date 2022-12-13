@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import List, Tuple
 from enum import Enum
 from copy import deepcopy
-import AISearch
+from AISearch import Minimax_Search
 
 #〇×ゲーム(TicTacToe)のマークを管理するクラス
 #Markクラスに、列挙型(enum)を継承している
@@ -250,179 +250,179 @@ class TicTacToe:
 
 #ミニマックスアルゴリズム(AI側の処理)の実装
 ####################################################################################
-def is_search_ended(
-    current_tic_tac_toe: TicTacToe, 
-    remaining_depth: int) -> bool:
-    #MiniMax による探索が終了している状態かどうかの真偽を取得
-    #parameter...current_tic_tac_toe : TicTacToe...対象の盤面の状態を保持した〇×ゲームのインスタンス
-    #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
+# def is_search_ended(
+#     current_tic_tac_toe: TicTacToe, 
+#     remaining_depth: int) -> bool:
+#     #MiniMax による探索が終了している状態かどうかの真偽を取得
+#     #parameter...current_tic_tac_toe : TicTacToe...対象の盤面の状態を保持した〇×ゲームのインスタンス
+#     #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
 
-    if current_tic_tac_toe.is_player_win:
-        return True
-    if current_tic_tac_toe.is_ai_win:
-        return True
-    if current_tic_tac_toe.is_draw:
-        return True
-    if remaining_depth == 0:
-        return True
-    return False
-    #return bool
-    #探索が終了しているかどうかの真偽
-    #終了していたらTrue
-    #盤面で勝敗が付いている(勝利 or 引き分け), or 指定された探索の木の深さにまで達していたらTrue
+#     if current_tic_tac_toe.is_player_win:
+#         return True
+#     if current_tic_tac_toe.is_ai_win:
+#         return True
+#     if current_tic_tac_toe.is_draw:
+#         return True
+#     if remaining_depth == 0:
+#         return True
+#     return False
+#     #return bool
+#     #探索が終了しているかどうかの真偽
+#     #終了していたらTrue
+#     #盤面で勝敗が付いている(勝利 or 引き分け), or 指定された探索の木の深さにまで達していたらTrue
 
-def get_maximized_evaluation_value(
-    current_tic_tac_toe: TicTacToe,
-    remaining_depth: int) -> int:
-    #MiniMax における、最大化された評価値の取得
-    #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
-    #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
+# def get_maximized_evaluation_value(
+#     current_tic_tac_toe: TicTacToe,
+#     remaining_depth: int) -> int:
+#     #MiniMax における、最大化された評価値の取得
+#     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+#     #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
 
-    maximized_evaluation_value: int = -1
-    empty_positions: List[Position] = \
-        current_tic_tac_toe.get_empty_positions()
-    for empty_position in empty_positions:
-        new_tic_tac_toe = current_tic_tac_toe.set_new_mark_and_change_turn(
-            position=empty_position)
+#     maximized_evaluation_value: int = -1
+#     empty_positions: List[Position] = \
+#         current_tic_tac_toe.get_empty_positions()
+#     for empty_position in empty_positions:
+#         new_tic_tac_toe = current_tic_tac_toe.set_new_mark_and_change_turn(
+#             position=empty_position)
 
-        evaluation_value: int = minimax(
-            current_tic_tac_toe=new_tic_tac_toe,
-            maximizing=False,
-            remaining_depth=remaining_depth - 1)
-        maximized_evaluation_value = max(
-            evaluation_value, maximized_evaluation_value)
+#         evaluation_value: int = minimax(
+#             current_tic_tac_toe=new_tic_tac_toe,
+#             maximizing=False,
+#             remaining_depth=remaining_depth - 1)
+#         maximized_evaluation_value = max(
+#             evaluation_value, maximized_evaluation_value)
 
-    return maximized_evaluation_value
-    #return int
-    #最大化された評価値
+#     return maximized_evaluation_value
+#     #return int
+#     #最大化された評価値
 
-def get_minimized_evaluation_value(
-    current_tic_tac_toe: TicTacToe,
-    remaining_depth: int) -> int:
-    #MiniMax における、最小化された評価値の取得
-    #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
-    #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
+# def get_minimized_evaluation_value(
+#     current_tic_tac_toe: TicTacToe,
+#     remaining_depth: int) -> int:
+#     #MiniMax における、最小化された評価値の取得
+#     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+#     #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
 
-    minimized_evaluation_value: int = 1
-    empty_positions: List[Position] = \
-        current_tic_tac_toe.get_empty_positions()
-    for empty_position in empty_positions:
-        new_tic_tac_toe = current_tic_tac_toe.set_new_mark_and_change_turn(
-            position=empty_position)
+#     minimized_evaluation_value: int = 1
+#     empty_positions: List[Position] = \
+#         current_tic_tac_toe.get_empty_positions()
+#     for empty_position in empty_positions:
+#         new_tic_tac_toe = current_tic_tac_toe.set_new_mark_and_change_turn(
+#             position=empty_position)
 
-        evaluation_value: int = minimax(
-            current_tic_tac_toe=new_tic_tac_toe,
-            maximizing=True,
-            remaining_depth=remaining_depth - 1)
-        minimized_evaluation_value = min(
-            evaluation_value, minimized_evaluation_value)
+#         evaluation_value: int = minimax(
+#             current_tic_tac_toe=new_tic_tac_toe,
+#             maximizing=True,
+#             remaining_depth=remaining_depth - 1)
+#         minimized_evaluation_value = min(
+#             evaluation_value, minimized_evaluation_value)
 
-    return minimized_evaluation_value
-    #return int
-    #最小化された評価値
+#     return minimized_evaluation_value
+#     #return int
+#     #最小化された評価値
 
-def minimax(
-    current_tic_tac_toe: TicTacToe,
-    maximizing: bool,
-    remaining_depth: int) -> int:
-    #MiniMax のアルゴリズムを実行し、結果の評価値を取得
-    #呼び出し後、最大で指定された深さ分再帰的に実行される
-    #※AI側を前提としたコード(マークは×)
-    #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
-    #            maximizing : bool...評価値を最大化するかどうかの真偽値(Falseの場合は最小化)
-    #                                次のアクションがPlayer側であればFalse, AI側であればTrueを指定
-    #            remaining_depth : int...探索の木の最大の深さ(多くする程計算に時間がかかる)
+# def minimax(
+#     current_tic_tac_toe: TicTacToe,
+#     maximizing: bool,
+#     remaining_depth: int) -> int:
+#     #MiniMax のアルゴリズムを実行し、結果の評価値を取得
+#     #呼び出し後、最大で指定された深さ分再帰的に実行される
+#     #※AI側を前提としたコード(マークは×)
+#     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+#     #            maximizing : bool...評価値を最大化するかどうかの真偽値(Falseの場合は最小化)
+#     #                                次のアクションがPlayer側であればFalse, AI側であればTrueを指定
+#     #            remaining_depth : int...探索の木の最大の深さ(多くする程計算に時間がかかる)
 
-    result_evaluate_value: bool = is_search_ended(
-        current_tic_tac_toe=current_tic_tac_toe,
-        remaining_depth=remaining_depth)
+#     result_evaluate_value: bool = is_search_ended(
+#         current_tic_tac_toe=current_tic_tac_toe,
+#         remaining_depth=remaining_depth)
 
-    if result_evaluate_value:
-        #探索が終了する条件(木の末端に達している or 勝敗が付いた場合)
-        #現在の盤面の評価値を返却
-        return current_tic_tac_toe.evaluate()
-        #return int
-        #evalute()で求めた値を返す(1, -1, 0)
+#     if result_evaluate_value:
+#         #探索が終了する条件(木の末端に達している or 勝敗が付いた場合)
+#         #現在の盤面の評価値を返却
+#         return current_tic_tac_toe.evaluate()
+#         #return int
+#         #evalute()で求めた値を返す(1, -1, 0)
 
-    #最大化する場合のケース(AI側)
-    if maximizing:
-        maximized_evaluation_value: int = get_maximized_evaluation_value(
-            current_tic_tac_toe = current_tic_tac_toe,
-            remaining_depth = remaining_depth,
-        )
-        return maximized_evaluation_value
+#     #最大化する場合のケース(AI側)
+#     if maximizing:
+#         maximized_evaluation_value: int = get_maximized_evaluation_value(
+#             current_tic_tac_toe = current_tic_tac_toe,
+#             remaining_depth = remaining_depth,
+#         )
+#         return maximized_evaluation_value
 
-    #最小化する場合のケース(Player側)
-    minimized_evaluation_value: int = get_minimized_evaluation_value(
-        current_tic_tac_toe = current_tic_tac_toe,
-        remaining_depth = remaining_depth,
-    )
-    return minimized_evaluation_value
+#     #最小化する場合のケース(Player側)
+#     minimized_evaluation_value: int = get_minimized_evaluation_value(
+#         current_tic_tac_toe = current_tic_tac_toe,
+#         remaining_depth = remaining_depth,
+#     )
+#     return minimized_evaluation_value
 
-    #return int
-    #MiniMax実行後の評価値
+#     #return int
+#     #MiniMax実行後の評価値
 
-def find_best_position(
-    current_tic_tac_toe: TicTacToe,
-    max_depth: int) -> Tuple[Position, int]:
-    #空いているマスの中で、最も良い位置をMiniMaxで算出する
-    #空いているマスそれぞれにMiniMaxを実行し、評価値が最大のマスが返却される
-    #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
-    #            max_depth : int...探索の木の最大の深さ
+# def find_best_position(
+#     current_tic_tac_toe: TicTacToe,
+#     max_depth: int) -> Tuple[Position, int]:
+#     #空いているマスの中で、最も良い位置をMiniMaxで算出する
+#     #空いているマスそれぞれにMiniMaxを実行し、評価値が最大のマスが返却される
+#     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+#     #            max_depth : int...探索の木の最大の深さ
 
-    best_evaluation_value: int = -1
-    empty_positions: List[Position] = \
-        current_tic_tac_toe.get_empty_positions()
-    if not empty_positions:
-        raise ValueError("空いているマスがありません")
-        #↑空いているマスがない状態で実行された場合
-    best_position: Position = empty_positions[0]
-    for empty_position in empty_positions:
-        current_loop_tic_tac_toe: TicTacToe = \
-            current_tic_tac_toe.set_new_mark_and_change_turn(
-                position=empty_position)
+#     best_evaluation_value: int = -1
+#     empty_positions: List[Position] = \
+#         current_tic_tac_toe.get_empty_positions()
+#     if not empty_positions:
+#         raise ValueError("空いているマスがありません")
+#         #↑空いているマスがない状態で実行された場合
+#     best_position: Position = empty_positions[0]
+#     for empty_position in empty_positions:
+#         current_loop_tic_tac_toe: TicTacToe = \
+#             current_tic_tac_toe.set_new_mark_and_change_turn(
+#                 position=empty_position)
 
-        evaluation_value: int = minimax(
-            current_tic_tac_toe = current_loop_tic_tac_toe,
-            maximizing = False,
-            remaining_depth = max_depth)
+#         evaluation_value: int = minimax(
+#             current_tic_tac_toe = current_loop_tic_tac_toe,
+#             maximizing = False,
+#             remaining_depth = max_depth)
 
-        if evaluation_value <= best_evaluation_value:
-            continue
-        best_evaluation_value = evaluation_value
-        best_position: Position = empty_position
-    return best_position, best_evaluation_value
-    #return Position
-    #算出されたベストな位置
-    #return int
-    #ベストな位置における評価値の最大値(-1, 0, 1 のいずれか)
+#         if evaluation_value <= best_evaluation_value:
+#             continue
+#         best_evaluation_value = evaluation_value
+#         best_position: Position = empty_position
+#     return best_position, best_evaluation_value
+#     #return Position
+#     #算出されたベストな位置
+#     #return int
+#     #ベストな位置における評価値の最大値(-1, 0, 1 のいずれか)
 
-#Playerの入力値を取得するための関数
-def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
-    #Player側のマークの配置の入力を取得
-    #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
+# #Playerの入力値を取得するための関数
+# def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
+#     #Player側のマークの配置の入力を取得
+#     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
 
-    is_empty_position: bool = False
-    players_selected_position: Position = Position(index=0)
-    while not is_empty_position:
-        empty_positions: List[Position] = \
-            current_tic_tac_toe.get_empty_positions()
-        msg: str = (
-            "〇を配置するマスのインデックスを選択してください"
-            "(選択可能なインデックス : %s): " % empty_positions
-        )
-        #マークを置くマスのインデックスを入力する
-        input_val: str = input(msg)
+#     is_empty_position: bool = False
+#     players_selected_position: Position = Position(index=0)
+#     while not is_empty_position:
+#         empty_positions: List[Position] = \
+#             current_tic_tac_toe.get_empty_positions()
+#         msg: str = (
+#             "〇を配置するマスのインデックスを選択してください"
+#             "(選択可能なインデックス : %s): " % empty_positions
+#         )
+#         #マークを置くマスのインデックスを入力する
+#         input_val: str = input(msg)
 
-        try:
-            input_index: int = int(input_val)
-            players_selected_position = Position(index=input_index)
-        except Exception:
-            continue
-        is_empty_position = current_tic_tac_toe.is_empty_position(
-            position=players_selected_position)
+#         try:
+#             input_index: int = int(input_val)
+#             players_selected_position = Position(index=input_index)
+#         except Exception:
+#             continue
+#         is_empty_position = current_tic_tac_toe.is_empty_position(
+#             position=players_selected_position)
 
-    return players_selected_position
+#     return players_selected_position
     #return Position
     #Player側が選択したマークの配置位置(置ける状態のマス)
 ####################################################################################
@@ -456,6 +456,9 @@ def main():
         print("AI側でマスを選択中です...")
         ai_selected_position: Position
         evalution_value: int
+        # ai_selected_position, evalution_value = find_best_position(
+        #     current_tic_tac_toe=tic_tac_toe,
+        #     max_depth=8)
         ai_selected_position, evalution_value = find_best_position(
             current_tic_tac_toe=tic_tac_toe,
             max_depth=8)
@@ -474,5 +477,57 @@ def main():
             break
         print(tic_tac_toe)
 
+# class Execution(AISearch):
+#     def main(self):
+#     #"〇×ゲームの実行"
+#     #クラス変数を宣言(最初はPlayer側から始める)
+#         tic_tac_toe: TicTacToe = TicTacToe(turn=Mark.O)
+
+#         while True:
+            
+#             #プレイヤー側のマーク配置の制御
+#             player_selected_position: Position = \
+#                 AISearch.get_player_input_position(current_tic_tac_toe=tic_tac_toe)
+#             print("-" * 20)
+#             tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
+#                 position=player_selected_position)
+            
+#             if tic_tac_toe.is_player_win:
+#                 print("プレイヤーの勝利です")
+#                 print(tic_tac_toe)
+#                 break
+#             if tic_tac_toe.is_draw:
+#                 print("引き分けです")
+#                 print(tic_tac_toe)
+#                 break
+#             print(tic_tac_toe)
+
+#             #AI側のマーク配置の制御
+#             print("AI側でマスを選択中です...")
+#             ai_selected_position: Position
+#             evalution_value: int
+#             # ai_selected_position, evalution_value = find_best_position(
+#             #     current_tic_tac_toe=tic_tac_toe,
+#             #     max_depth=8)
+#             ai_selected_position, evalution_value = AISearch.find_best_position(
+#                 current_tic_tac_toe=tic_tac_toe,
+#                 max_depth=8)
+#             print(
+#                 f"AIは {ai_selected_position} のインデックスを選択しました"
+#                 f"（評価値 : {evalution_value}）。")
+#             tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
+#                 position=ai_selected_position)
+#             if tic_tac_toe.is_ai_win:
+#                 print("AI側が勝利しました")
+#                 print(tic_tac_toe)
+#                 break
+#             if tic_tac_toe.is_draw:
+#                 print("引き分けです")
+#                 print(tic_tac_toe)
+#                 break
+#             print(tic_tac_toe)
+
+
 if __name__ == "__main__":
+    #Execution.main()
     main()
