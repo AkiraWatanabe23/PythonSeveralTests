@@ -140,16 +140,14 @@ class TicTacToe:
         #プレイヤーが勝利したか
 
         return self.is_target_mark_win(mark=Mark.O)
-        #return bool
-        #プレイヤーが勝利しているかどうか
+        #return bool...プレイヤーが勝利しているかどうか
 
     @property
     def is_ai_win(self) -> bool:
         #AIが勝利したか
 
         return self.is_target_mark_win(mark=Mark.X)
-        #return bool
-        #AIが勝利しているかどうか
+        #return bool...AIが勝利しているかどうか
 
     def is_target_mark_win(self, mark: Mark) -> bool:
         #指定されたマーク側が勝利しているかのbool
@@ -162,9 +160,9 @@ class TicTacToe:
                 self.is_condition_satisfied_positions(
                     condition_positions=condition_position,
                     target_mark=mark)
-            #改行しなかった場合、以下のようになる
-            #condition_satisfied: bool = self.is_condition_satisfied_positions(condition_positions=condition_position, target_mark=mark)
+            #改行しなかった場合、非常に横に長いことになってしまうため注意
 
+            #もし勝利条件を満たすラインが存在したらTrueを返す
             if condition_satisfied:
                 return True
         return False
@@ -181,13 +179,16 @@ class TicTacToe:
         is_taregt_marks: List[bool] = []
         for condition_position in condition_positions:
             mark: Mark = self.marks[condition_position.index]
+            #もし勝利条件にあてはまるマスの状態だったら
             if mark == target_mark:
+                #そのマスにTrueを設定する
                 is_taregt_marks.append(True)
                 continue
+            #勝利条件にあてはまらないマスにはFalseを設定する
             is_taregt_marks.append(False)
         return all(is_taregt_marks)
         #return List[bool]
-        #条件を満たした場合、各位置でTrueが設定される
+        #all(list)...listの要素が全てTrueなら(今回の場合、勝利条件を満たすラインがあれば)、Trueを返す
 
     @property
     def is_draw(self) -> bool:
@@ -198,6 +199,7 @@ class TicTacToe:
             return False
         if self.is_ai_win:
             return False
+        #空のマスがあったら
         if empty_position_num != 0:
             return False
         return True
