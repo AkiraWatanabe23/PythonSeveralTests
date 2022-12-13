@@ -156,12 +156,14 @@ class TicTacToe:
         #parameter...mark : Mark...判定対象のマーク
 
         for condition_position in self._CONDITION_POSITIONS:
-            #以下の「\」は、1行では書ききれない長い行を改行する時に、
+            #以下の「\」は、1行では書ききれない長い行を改行する時に
             #次の行の内容も同じ行の処理であることを示す記号
             condition_satisfied: bool = \
                 self.is_condition_satisfied_positions(
                     condition_positions=condition_position,
                     target_mark=mark)
+            #改行しなかった場合、以下のようになる
+            #condition_satisfied: bool = self.is_condition_satisfied_positions(condition_positions=condition_position, target_mark=mark)
 
             if condition_satisfied:
                 return True
