@@ -18,8 +18,8 @@ instance.output() # -> aaa
 
 #四則演算(「+」「-」「*」「/」「//」)
 class FourArithmetic:
-    #return None の場合や、
-    #複数の種類の型が返ってくることが考えられる(int の時も float の時もある)ような場合、「 -> xxx」は記述しなくてよい
+    #戻り値の型を指定する「 -> xxx」は、記述しなくてもよい
+    #(ただし、戻り値がある場合は記述しておいた方が分かりやすい)
     def __init__(self, value):
         self.value = value
 

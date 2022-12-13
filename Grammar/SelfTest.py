@@ -10,10 +10,10 @@ class SelfBase():
 
 instance = SelfBase()
 instance.method() # -> Hello!!
-"""
-self ... そのクラスの現在のインスタンスを示すもの
-         クラス内に定義した関数(インスタンスメソッド)の第一引数として扱うもの
+#self ... そのクラスの現在のインスタンスを示すもの
+#         クラス内に定義した関数(インスタンスメソッド)の第一引数として扱うもの
 
+"""
 もし、class内で定義したメソッドに引数を1つも渡さなかった場合(使う、使わないに関わらず)
 「TypeError: クラス名.メソッド名() takes 0 positional arguments but 1 was given」
 (メソッドには1つの引数が必須ですが、0個しか渡されていません)というエラーが出る
@@ -28,14 +28,16 @@ pythonでは、クラスをインスタンスとしてから中のdefで定義�
 #↓ クラス、インスタンスの考え方
 #クラス　　　 ... 「設計図」
 #インスタンス ... 設計図をもとにして「実際につくったモノ」
+#　->インスタンスを生成して処理を実行しても、クラスそのものの値や関数を変更する訳ではない
 
 #使い方 1 :インスタンス変数として参照する
 class Instance():
     def __init__(self, strA, strB):
+        #インスタンス変数...コンストラクタ内で宣言された変数
         self.strA = strA
         self.strB = strB
 
-test = Instance("Good", "Morning!") #ここでインスタンス化している(インスタンス変数)
+test = Instance("Good", "Morning!") #ここでインスタンス化している
 print(test.strA) # -> Good
 print(test.strB) # -> Morning!
 """
@@ -97,20 +99,20 @@ test = Warns()
 python の仕様として、「self.変数名」の形でクラス変数もインスタンス変数も参照できるが、
 同じ名前のクラス変数とインスタンス変数があり、両方に値がある場合、インスタンス変数を優先して参照する
 
-(3 の場合は、コンストラクタ内でstrA(クラス変数)を"Hello everyone"に変更し、出力しようとしたが
- この時点でクラス変数「strA」とインスタンス変数「self.strA」の両方に値が存在するため、
- インスタンス変数「self.strA」("Hello World!")が優先して出力される)
+3 の場合は、コンストラクタ内でstrA(クラス変数)を"Hello everyone"に変更して出力しようとしたが、
+この時点でクラス変数「strA」とインスタンス変数「strA」の両方に値が存在するため、
+インスタンス変数「strA」("Hello World!")が優先して出力される
 """
 
 
 #合わせて理解したい ... 「cls」
-"""
-cls ... クラス自身を示すもの
-        「@classmethod」デコレータをつけたメソッド(クラスメソッド)の第一引数として扱うもの
+#cls ... クラス自身を示すもの
+#        「@classmethod」デコレータをつけたメソッド(クラスメソッド)の第一引数として扱うもの
 
+"""
 self とは何が違うのか?
-→ self ... クラス全体のインスタンスを示す
-  cls  ... そのクラスのみを示す
+→ self ... クラスのインスタンス(実際に作ったモノ)を指す
+  cls  ... クラスそのもの(設計図)を指す
 """
 
 class CLSTest:
@@ -131,10 +133,10 @@ ins_s = CLSTest("Tony")
 
 ins_f.call_name() # -> My name is Mike.
 ins_s.call_name() # -> My name is Tony.
-#cal_name()はインスタンスメソッドであり、selfはそれぞれのインスタンスを示すものであるため
+#call_name()はインスタンスメソッドであり、selfはそれぞれのインスタンスを示すものであるため
 #それぞれのインスタンスの値で出力される
 
 ins_f.ask_name()  # -> Yoour name is Mary, right?
 ins_s.ask_name()  # -> Yoour name is Mary, right?
 #ask_name()はクラスメソッドであり、clsはクラスそのものを示すため
-#クラス変数である name = "Mary" が参照され、出力された
+#クラス変数である name = "Mary" が参照され、出力される
