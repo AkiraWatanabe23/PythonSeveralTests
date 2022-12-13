@@ -209,7 +209,7 @@ class TicTacToe:
 
     def evaluate(self) -> int:
         #AI側の選択結果の性能評価のための評価関数
-        #parameter...target_mark : Mark...判定側の真０区
+        #parameter...target_mark : Mark...判定側のマーク
         #〇側での評価をしたい場合はMark.O
         #×                       Mark.X を指定する
 
@@ -338,6 +338,8 @@ def minimax(
         #探索が終了する条件(木の末端に達している or 勝敗が付いた場合)
         #現在の盤面の評価値を返却
         return current_tic_tac_toe.evaluate()
+        #return int
+        #evalute()で求めた値を返す(1, -1, 0)
 
     #最大化する場合のケース(AI側)
     if maximizing:
