@@ -2,6 +2,7 @@
 #https://www.sejuku.net/blog/64106
 #https://prograshi.com/language/python/py-self-in-class/
 #https://blog.pyq.jp/entry/python_kaiketsu_220720
+#https://wa3.i-3-i.info/word1118.html
 
 class SelfBase():
     def method(self): #def(関数)...definition
@@ -24,6 +25,9 @@ pythonでは、クラスをインスタンスとしてから中のdefで定義�
 インスタンス自身が入る引数を渡す必要がある
 このインスタンス自身を入れる引数に習慣として「self」が使われる
 """
+#↓ クラス、インスタンスの考え方
+#クラス　　　 ... 「設計図」
+#インスタンス ... 設計図をもとにして「実際につくったモノ」
 
 #使い方 1 :インスタンス変数として参照する
 class Instance():
@@ -97,6 +101,7 @@ python の仕様として、「self.変数名」の形でクラス変数もイ�
  この時点でクラス変数「strA」とインスタンス変数「self.strA」の両方に値が存在するため、
  インスタンス変数「self.strA」("Hello World!")が優先して出力される)
 """
+
 
 #合わせて理解したい ... 「cls」
 """
