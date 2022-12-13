@@ -225,6 +225,8 @@ class TicTacToe:
 
     def __str__(self) -> str:
         #現在の各マスの内容を可視化した文字列を返す
+        #クラスごとに__str__を各々定義することで、
+        #そのクラス内での出力方法を定義することになる
 
         info: str = ''
         for i in range(9):
@@ -330,11 +332,11 @@ def minimax(
     #                                次のアクションがPlayer側であればFalse, AI側であればTrueを指定
     #            remaining_depth : int...探索の木の最大の深さ(多くする程計算に時間がかかる)
 
-    is_search_ended: bool = is_search_ended(
+    result_evaluate_value: bool = is_search_ended(
         current_tic_tac_toe=current_tic_tac_toe,
         remaining_depth=remaining_depth)
 
-    if is_search_ended:
+    if result_evaluate_value:
         #探索が終了する条件(木の末端に達している or 勝敗が付いた場合)
         #現在の盤面の評価値を返却
         return current_tic_tac_toe.evaluate()
@@ -408,6 +410,7 @@ def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
             "〇を配置するマスのインデックスを選択してください"
             "(選択可能なインデックス : %s): " % empty_positions
         )
+        #マークを置くマスのインデックスを入力する
         input_val: str = input(msg)
 
         try:
@@ -420,7 +423,7 @@ def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
 
     return players_selected_position
     #return Position
-    #Player側が選択したマークの配置位置
+    #Player側が選択したマークの配置位置(置ける状態のマス)
 ####################################################################################
 
 #ゲームプレイのための処理
