@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import List, Tuple
 from enum import Enum
 from copy import deepcopy
-from AISearch import Minimax_Search
+import AISearch
 
 #〇×ゲーム(TicTacToe)のマークを管理するクラス
 #Markクラスに、列挙型(enum)を継承している
@@ -434,10 +434,9 @@ def main():
     tic_tac_toe: TicTacToe = TicTacToe(turn=Mark.O)
 
     while True:
-        
         #プレイヤー側のマーク配置の制御
         player_selected_position: Position = \
-            get_player_input_position(current_tic_tac_toe=tic_tac_toe)
+            AISearch.Minimax_Search.get_player_input_position(current_tic_tac_toe=tic_tac_toe)
         print("-" * 20)
         tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
             position=player_selected_position)
@@ -456,10 +455,7 @@ def main():
         print("AI側でマスを選択中です...")
         ai_selected_position: Position
         evalution_value: int
-        # ai_selected_position, evalution_value = find_best_position(
-        #     current_tic_tac_toe=tic_tac_toe,
-        #     max_depth=8)
-        ai_selected_position, evalution_value = find_best_position(
+        ai_selected_position, evalution_value = AISearch.Minimax_Search.find_best_position(
             current_tic_tac_toe=tic_tac_toe,
             max_depth=8)
         print(
@@ -487,7 +483,7 @@ def main():
             
 #             #プレイヤー側のマーク配置の制御
 #             player_selected_position: Position = \
-#                 AISearch.get_player_input_position(current_tic_tac_toe=tic_tac_toe)
+#                 get_player_input_position(current_tic_tac_toe=tic_tac_toe)
 #             print("-" * 20)
 #             tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
 #                 position=player_selected_position)
@@ -509,9 +505,6 @@ def main():
 #             # ai_selected_position, evalution_value = find_best_position(
 #             #     current_tic_tac_toe=tic_tac_toe,
 #             #     max_depth=8)
-#             ai_selected_position, evalution_value = AISearch.find_best_position(
-#                 current_tic_tac_toe=tic_tac_toe,
-#                 max_depth=8)
 #             print(
 #                 f"AIは {ai_selected_position} のインデックスを選択しました"
 #                 f"（評価値 : {evalution_value}）。")
@@ -529,5 +522,5 @@ def main():
 
 
 if __name__ == "__main__":
-    #Execution.main()
     main()
+    #Execution.main()
