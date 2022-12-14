@@ -179,6 +179,7 @@ class Minimax_Search(MiniMaxTest.TicTacToe, MiniMaxTest.Position):
             input_val: str = input(msg)
 
             try:
+                #選択したマスのインデックスを渡す
                 input_index: int = int(input_val)
                 players_selected_position = MiniMaxTest.Position(index=input_index)
             except Exception:
