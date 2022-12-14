@@ -434,13 +434,15 @@ def main():
     tic_tac_toe: TicTacToe = TicTacToe(turn=Mark.O)
 
     while True:
-        #プレイヤー側のマーク配置の制御
+        #Playerのターンの時の処理
+        #マスの選択、反映
         player_selected_position: Position = \
             AISearch.Minimax_Search.get_player_input_position(current_tic_tac_toe=tic_tac_toe)
         print("-" * 20)
         tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
             position=player_selected_position)
         
+        #Playerが勝利、または引き分けた場合の出力
         if tic_tac_toe.is_player_win:
             print("プレイヤーの勝利です")
             print(tic_tac_toe)
@@ -449,9 +451,11 @@ def main():
             print("引き分けです")
             print(tic_tac_toe)
             break
+        #現在のマスの状態を出力
         print(tic_tac_toe)
 
-        #AI側のマーク配置の制御
+        #AIのターンの時の処理
+        #マスの選択、反映、勝利判定
         print("AI側でマスを選択中です...")
         ai_selected_position: Position
         evalution_value: int
@@ -471,6 +475,7 @@ def main():
             print("引き分けです")
             print(tic_tac_toe)
             break
+        #現在のマスの状態を出力
         print(tic_tac_toe)
 
 # class Execution(AISearch):

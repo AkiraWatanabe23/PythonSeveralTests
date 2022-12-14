@@ -123,7 +123,6 @@ class Minimax_Search(MiniMaxTest.TicTacToe, MiniMaxTest.Position):
         #return int
         #MiniMax実行後の評価値
 
-    @staticmethod
     def find_best_position(
         self, 
         current_tic_tac_toe: MiniMaxTest.TicTacToe,
@@ -161,13 +160,14 @@ class Minimax_Search(MiniMaxTest.TicTacToe, MiniMaxTest.Position):
         #ベストな位置における評価値の最大値(-1, 0, 1 のいずれか)
 
     #Playerの入力値を取得するための関数
-    @staticmethod
     def get_player_input_position(current_tic_tac_toe: MiniMaxTest.TicTacToe) -> MiniMaxTest.Position:
         #Player側のマークの配置の入力を取得
         #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
 
         is_empty_position: bool = False
         players_selected_position: MiniMaxTest.Position = MiniMaxTest.Position(index=0)
+        #is_empty_position == False の間while文を実行する
+        #is_empty_position = True -> 選択したマスにマークを設定できる
         while not is_empty_position:
             empty_positions: List[MiniMaxTest.Position] = \
                 current_tic_tac_toe.get_empty_positions()
