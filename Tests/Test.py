@@ -1,6 +1,7 @@
 #色々思いついたことをテストしてみる
 import random
 
+#ランダム値を当ててみよう
 class Check:
     order: int = 0
     num: int = 0
@@ -9,14 +10,10 @@ class Check:
         self.num = num
         self.order = random.randint(1, 100)
 
-def main():
-    instance: Check = Check(num=0)
-    instance.num = input()
-    
-    if instance.num == instance.order:
-        print("Congratulations!!")
-    else:
-        print(f"random number is {instance.order}")
+instance: Check = Check(num=0)
+instance.num = input()
 
-if __name__ == "__main__":
-    main()
+if instance.num == instance.order:
+    print("Congratulations!!")
+else:
+    print(f"random number is {instance.order}")
