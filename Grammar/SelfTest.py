@@ -126,7 +126,7 @@ class CLSTest:
 
     @classmethod
     def ask_name(cls):
-        print(f"Yoour name is {cls.name}, right?")
+        print(f"Your name is {cls.name}, right?")
 
 ins_f = CLSTest("Mike")
 ins_s = CLSTest("Tony")
@@ -136,7 +136,7 @@ ins_s.call_name() # -> My name is Tony.
 #call_name()はインスタンスメソッドであり、selfはそれぞれのインスタンスを示すものであるため
 #それぞれのインスタンスの値で出力される
 
-ins_f.ask_name()  # -> Yoour name is Mary, right?
-ins_s.ask_name()  # -> Yoour name is Mary, right?
+ins_f.ask_name()  # -> Your name is Mary, right?
+ins_s.ask_name()  # -> Your name is Mary, right?
 #ask_name()はクラスメソッドであり、clsはクラスそのものを示すため
 #クラス変数である name = "Mary" が参照され、出力される
