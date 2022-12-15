@@ -1,19 +1,27 @@
 #色々思いついたことをテストしてみる
 import random
 
-#ランダム値を当ててみよう
-class Check:
-    order: int = 0
-    num: int = 0
+#じゃんけん
+#グー：0, チョキ：1, パー：2
+def judge(x, y):
+    result: str
 
-    def __init__(self, num: int):
-        self.num = num
-        self.order = random.randint(1, 100)
+    if (x - y) % 3 == 0:
+        result = "あいこ"
+    elif (x - y) % 3 == 1:
+        result = "負け"
+    elif (x - y) % 3 == 2:
+        result = "勝ち"
+    print(result)
 
-instance: Check = Check(num=0)
-instance.num = input()
+hands: list[str] = ["グー", "チョキ", "パー"]
 
-if instance.num == instance.order:
-    print("Congratulations!!")
-else:
-    print(f"random number is {instance.order}")
+get = input("手を選んでください\n 0 : グー, 1 : チョキ, 2 : パー \n")
+
+player = int(get)
+vs: int = random.randint(0, 2)
+
+print("\nあなたの手 : {}".format(hands[player]))
+print("コンピュータの手 : {}\n".format(hands[vs]))
+
+judge(player, vs)
