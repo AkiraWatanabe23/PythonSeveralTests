@@ -19,7 +19,7 @@ instance.output() # -> aaa
 #四則演算(「+」「-」「*」「/」「//」)
 class FourArithmetic:
     #戻り値の型を指定する「 -> xxx」は、記述しなくてもよい
-    #(ただし、戻り値がある場合は記述しておいた方が分かりやすい)
+    #(ただし、戻り値がある場合は記述しておいた方が型が分かりやすい)
     def __init__(self, value):
         self.value = value
 
@@ -102,3 +102,27 @@ z = Compares(100)
 
 print(x == y) # -> False
 print(x == z) # -> True
+
+class StringConvert:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    #「__str__」定義されたクラス内の入力を文字列型に変換する(return str)
+    def __str__(self) -> str:
+        return f"My name is {self.name}, and I'm {self.age} years old."
+    
+x = StringConvert("mike", 18)
+print(x) # -> My name is mike, and I'm 18 years old.
+#↑pythonでは、文字列の中にintが入っているとエラーが発生するため、数値型もintに変換する必要がある
+
+class IntConvert:
+    def __init__(self, age):
+        self.age = age
+    
+    #「__int__」定義されたクラス内の入力を数値型に変換する(return int)
+    def __int__(self) -> int:
+        return int(self.age)
+    
+y = IntConvert("100")
+print(int(y) + 5) # -> 105
