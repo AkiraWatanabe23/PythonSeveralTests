@@ -12,3 +12,10 @@ print(math.log(num, 2))
 #exp(a) [return float] ... ネイピア数eのa乗(指数関数)
 #※ math.exp(a) != math.e ** a (math.exp(a)の方がより正確な値を返す)
 print(math.exp(num))
+
+#math.floor ... 小数点以下切り捨て
+#math.ceil  ... 小数点以下切り上げ
+
+x = 5.124
+print(math.floor(x)) # -> 5
+print(math.ceil(x))  # -> 6
