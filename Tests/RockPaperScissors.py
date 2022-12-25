@@ -1,7 +1,6 @@
-#色々思いついたことをテストしてみる
+#じゃんけん
 import random
 
-#じゃんけん
 #グー：0, チョキ：1, パー：2
 def judge(x, y):
     result: str
