@@ -1,20 +1,14 @@
 #FizzBuzz
 
-def fizzbuzz(n: int):
-    if n < 0:
-        print("none")
-    else:
-        if n % 15 == 0:
+def fizzbuzz():
+    for i in range(1, 101):
+        if i % 15 == 0:
             print("FizzBuzz")
-        elif n % 3 == 0:
+        elif i % 3 == 0:
             print("Fizz")
-        elif n % 5 == 0:
+        elif i % 5 == 0:
             print("Buzz")
         else:
-            print("Not")
-    
-    
-get = input("自然数を1つ入力してください \n")
-num = int(get)
+            print(i)
 
-fizzbuzz(num)
+fizzbuzz()
