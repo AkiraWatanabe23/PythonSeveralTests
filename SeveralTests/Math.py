@@ -15,7 +15,6 @@ print(math.exp(num))
 
 #math.floor ... 小数点以下切り捨て
 #math.ceil  ... 小数点以下切り上げ
-
 x = 5.124
 print(math.floor(x)) # -> 5
 print(math.ceil(x))  # -> 6
