@@ -1,3 +1,7 @@
 #「pylint(ツール)」についてのテスト
 
-print("aaa")
+nums: list = [0, 1, 2]
+words: tuple = ("aaa", "bbb", "ccc")
+
+print(type(nums))
+print(type(words))
