@@ -7,12 +7,25 @@ data = os.listdir("/")
 #↓一覧から「book」という名前のディレクトリを探すプログラム
 
 #1, 深さ優先探索
-def search_for_depth(dir, name):
+# def search_for_depth(dir, name):
+#     for i in os.listdir(dir):
+#         if i == name:
+#             print(dir + i)
+#         if os.path.isdir(dir + i):
+#             if os.access(dir + i, os.R_OK):
+#                 search_for_depth(dir + i + '/', name)
+                
+# search_for_depth('/', 'book')
+
+#2, 幅優先探索
+queue = ['/']
+
+while len(queue) > 0:
+    dir = queue.pop()
     for i in os.listdir(dir):
-        if i == name:
-            print(dir + i)
+        if i == 'book':
+            print(dir + '/')
+            
         if os.path.isdir(dir + i):
             if os.access(dir + i, os.R_OK):
-                search_for_depth(dir + i + "/", name)
-                
-search_for_depth("/", "book")
+                queue.append(dir + i + '/')
