@@ -1,3 +1,4 @@
+'''モジュール「os」'''
 import os
 
 #listdir ... あるフォルダ内のファイルやフォルダの一覧を取得する関数
@@ -19,7 +20,6 @@ for i in data:
 #         if os.path.isdir(dir + i):
 #             if os.access(dir + i, os.R_OK):
 #                 search_for_depth(dir + i + '/', name)
-                
 # search_for_depth('/', 'book')
 
 #2, 幅優先探索
@@ -30,7 +30,6 @@ for i in data:
 #     for i in os.listdir(dir):
 #         if i == 'book':
 #             print(dir + '/')
-            
 #         if os.path.isdir(dir + i):
 #             if os.access(dir + i, os.R_OK):
 #                 queue.append(dir + i + '/')
