@@ -1,4 +1,4 @@
-#モジュール「math」
+'''モジュール「math」'''
 import math
 
 get = input("数字を入力してください \n")
@@ -23,6 +23,6 @@ print(f"半径{num}の円の面積は{area}です")
 
 #math.floor ... 小数点以下切り捨て
 #math.ceil  ... 小数点以下切り上げ
-x = 5.124
-print(math.floor(x)) # -> 5
-print(math.ceil(x))  # -> 6
+NUM = 5.124
+print(math.floor(NUM)) # -> 5
+print(math.ceil(NUM))  # -> 6
