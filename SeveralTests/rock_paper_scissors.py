@@ -1,15 +1,15 @@
-#じゃんけん
+'''じゃんけん'''
 import random
 
-#グー：0, チョキ：1, パー：2
-def judge(x, y):
+def judge(pl1, pl2):
+    '''グー: 0, チョキ: 1, パー: 2'''
     result: str
 
-    if (x - y) % 3 == 0:
+    if (pl1 - pl2) % 3 == 0:
         result = "あいこ"
-    elif (x - y) % 3 == 1:
+    elif (pl1 - pl2) % 3 == 1:
         result = "負け"
-    elif (x - y) % 3 == 2:
+    elif (pl1 - pl2) % 3 == 2:
         result = "勝ち"
     print(result)
 
@@ -20,7 +20,7 @@ get = input("手を選んでください\n 0 : グー, 1 : チョキ, 2 : パー
 player = int(get)
 vs: int = random.randint(0, 2)
 
-print("\nあなたの手 : {}".format(hands[player]))
-print("コンピュータの手 : {}\n".format(hands[vs]))
+print(f"あなたの手 : {hands[player]}")
+print(f"コンピュータの手 : {hands[vs]}\n")
 
 judge(player, vs)
