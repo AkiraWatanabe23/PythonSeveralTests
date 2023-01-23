@@ -1,11 +1,12 @@
+'''〇×ゲーム'''
 from __future__ import annotations
 from typing import List, Tuple
 from enum import Enum
 from copy import deepcopy
 
-#〇×ゲーム(TicTacToe)のマークを管理するクラス
-#Markクラスに、列挙型(enum)を継承している
 class Mark(Enum):
+    '''〇×ゲーム(TicTacToe)のマークを管理するクラス
+       Markクラスに、列挙型(enum)を継承している'''
     # O...〇(Player)
     # X...×(AI)
     # E...empty(空)
@@ -15,9 +16,8 @@ class Mark(Enum):
     X = 'x'
     E = ' '
 
-    #ターンを切り替える関数
     def get_opponent(self) -> Mark:
-        
+        '''ターンを切り替える関数'''
         if self == Mark.O:
             return Mark.X
         elif self == Mark.X:
@@ -27,16 +27,15 @@ class Mark(Enum):
     def __str__(self) -> str:
         return self.value
 
-#マスの位置を扱うクラス
 class Position:
-
+    '''マスの位置を扱うクラス'''
     #マスのインデックスを扱う
     #index: int...対象のインデックス(0~8)
     def __init__(self, index: int) -> None:
         index_range: List[int] = list(range(0, 9))
         #範囲外が指定された場合
         if index not in index_range:
-            raise ValueError('指定されたインデックスが範囲外の値です : %s' % index)
+            raise ValueError(f'指定されたインデックスが範囲外の値です : {index}')
         self.index = index
 
     def __eq__(self, obj: object) -> bool:
@@ -46,17 +45,11 @@ class Position:
             return True
         return False
 
-    """
-    ex.) print(3), print("3") -> 3 を出力する
-         __repr__ を定義すると↓
-         print(3) -> 3
-         print("3") -> '3' を出力する
-    """
     def __repr__(self) -> str:
         return repr(self.index)
 
-#ゲームの盤面の状態などを扱うクラス
 class TicTacToe:
+    '''ゲームの盤面の状態などを扱うクラス'''
 
     #ゲームの初期設定を行うコンストラクタ(盤面や、手番)
     def __init__(self, turn: Mark, marks: List[Mark]=None) -> None:
@@ -72,7 +65,7 @@ class TicTacToe:
         self.marks = marks
 
     def set_new_mark_and_change_turn(self, position: Position) -> TicTacToe:
-        #選んだマスに〇 or × のマークを設定する
+        '''選んだマスに〇 or × のマークを設定する'''
 
         current_mark: Mark = self.marks[position.index]
         #選択したマスがEmptyではなかったら(既に埋まっていたら)
@@ -88,7 +81,7 @@ class TicTacToe:
         return new_tic_tac_toe
 
     def get_empty_positions(self) -> List[Position]:
-        #空いているマスのリストを取得
+        '''空いているマスのリストを取得'''
 
         empty_positions: List[Position] = []
         for index, mark in enumerate(self.marks):
@@ -103,6 +96,7 @@ class TicTacToe:
         #空いているマスのリスト
 
     def is_empty_position(self, position: Position) -> bool:
+        '''指定したマスに置けるか判定'''
         #parameter...position: Position...判定対象の位置
 
         #空のマスのListを取得
@@ -137,20 +131,20 @@ class TicTacToe:
     #「@xxx」は、関数デコレータ...関数をデコレート(装飾)する
     @property
     def is_player_win(self) -> bool:
-        #プレイヤーが勝利したか
+        '''プレイヤーが勝利したか'''
 
         return self.is_target_mark_win(mark=Mark.O)
         #return bool...プレイヤーが勝利しているかどうか
 
     @property
     def is_ai_win(self) -> bool:
-        #AIが勝利したか
+        '''AIが勝利したか'''
 
         return self.is_target_mark_win(mark=Mark.X)
         #return bool...AIが勝利しているかどうか
 
     def is_target_mark_win(self, mark: Mark) -> bool:
-        #指定されたマーク側が勝利しているかのbool
+        '''指定されたマーク側が勝利しているかのbool'''
         #parameter...mark : Mark...判定対象のマーク
 
         for condition_position in self._CONDITION_POSITIONS:
@@ -172,7 +166,7 @@ class TicTacToe:
     def is_condition_satisfied_positions(
         self, condition_positions: _ConditionPositions,
         target_mark: Mark) -> bool:
-        #勝利条件を満たしている位置の組み合わせが存在するか(bool)
+        '''勝利条件を満たしている位置の組み合わせが存在するか(bool)'''
         #parameter...condition_positions : _ConditionPositions...チェック対象の位置の組み合わせを格納したタプル
         #            target_mark : Mark...対象のマーク(〇 or ×)
 
@@ -192,7 +186,7 @@ class TicTacToe:
 
     @property
     def is_draw(self) -> bool:
-        #引き分けかどうか
+        '''引き分けかどうか'''
 
         empty_position_num: int = len(self.get_empty_positions())
         if self.is_player_win:
@@ -208,7 +202,7 @@ class TicTacToe:
         #勝敗がついていない and マスが埋まっている状態ならTrue
 
     def evaluate(self) -> int:
-        #AI側の選択結果の性能評価のための評価関数
+        '''AI側の選択結果の性能評価のための評価関数'''
         #parameter...target_mark : Mark...判定側のマーク
         #〇側での評価をしたい場合はMark.O
         #×                       Mark.X を指定する
@@ -242,9 +236,9 @@ class TicTacToe:
 #ミニマックスアルゴリズム(AI側の処理)の実装
 ####################################################################################
 def is_search_ended(
-    current_tic_tac_toe: TicTacToe, 
+    current_tic_tac_toe: TicTacToe,
     remaining_depth: int) -> bool:
-    #MiniMax による探索が終了している状態かどうかの真偽を取得
+    '''MiniMax による探索が終了している状態かどうかの真偽を取得'''
     #parameter...current_tic_tac_toe : TicTacToe...対象の盤面の状態を保持した〇×ゲームのインスタンス
     #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
 
@@ -265,7 +259,7 @@ def is_search_ended(
 def get_maximized_evaluation_value(
     current_tic_tac_toe: TicTacToe,
     remaining_depth: int) -> int:
-    #MiniMax における、最大化された評価値の取得
+    '''MiniMax における、最大化された評価値の取得'''
     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
     #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
 
@@ -290,7 +284,7 @@ def get_maximized_evaluation_value(
 def get_minimized_evaluation_value(
     current_tic_tac_toe: TicTacToe,
     remaining_depth: int) -> int:
-    #MiniMax における、最小化された評価値の取得
+    '''MiniMax における、最小化された評価値の取得'''
     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
     #            remaining_depth : int...残っている探索の深さ(最後の探索範囲に達していたら0を指定する)
 
@@ -316,7 +310,7 @@ def minimax(
     current_tic_tac_toe: TicTacToe,
     maximizing: bool,
     remaining_depth: int) -> int:
-    #MiniMax のアルゴリズムを実行し、結果の評価値を取得
+    '''MiniMax のアルゴリズムを実行し、結果の評価値を取得'''
     #呼び出し後、最大で指定された深さ分再帰的に実行される
     #※AI側を前提としたコード(マークは×)
     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
@@ -356,8 +350,8 @@ def minimax(
 def find_best_position(
     current_tic_tac_toe: TicTacToe,
     max_depth: int) -> Tuple[Position, int]:
-    #空いているマスの中で、最も良い位置をMiniMaxで算出する
-    #空いているマスそれぞれにMiniMaxを実行し、評価値が最大のマスが返却される
+    '''空いているマスの中で、最も良い位置をMiniMaxで算出する
+       空いているマスそれぞれにMiniMaxを実行し、評価値が最大のマスが返却される'''
     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
     #            max_depth : int...探索の木の最大の深さ
 
@@ -388,8 +382,8 @@ def find_best_position(
     #return int
     #ベストな位置における評価値の最大値(-1, 0, 1 のいずれか)
 
-#Playerの入力値を取得するための関数
 def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
+    '''Playerの入力値を取得するための関数'''
     #Player側のマークの配置の入力を取得
     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
 
@@ -400,7 +394,7 @@ def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
             current_tic_tac_toe.get_empty_positions()
         msg: str = (
             "〇を配置するマスのインデックスを選択してください"
-            "(選択可能なインデックス : %s): " % empty_positions
+            f"(選択可能なインデックス : {empty_positions}): "
         )
         #マークを置くマスのインデックスを入力する
         input_val: str = input(msg)
@@ -418,8 +412,8 @@ def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
     #Player側が選択したマークの配置位置(置ける状態のマス)
 ####################################################################################
 
-#ゲームプレイのための処理
 def main():
+    '''ゲームプレイのための処理'''
     #"〇×ゲームの実行"
     #クラス変数を宣言(最初はPlayer側から始める)
     tic_tac_toe: TicTacToe = TicTacToe(turn=Mark.O)
@@ -432,7 +426,6 @@ def main():
         print("-" * 20)
         tic_tac_toe = tic_tac_toe.set_new_mark_and_change_turn(
             position=player_selected_position)
-        
         #Playerが勝利、または引き分けた場合の出力
         if tic_tac_toe.is_player_win:
             print("プレイヤーの勝利です")
@@ -471,3 +464,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
