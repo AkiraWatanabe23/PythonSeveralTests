@@ -2,20 +2,20 @@
 #2つの自然数a, bにおいて、aをbで割った商をq、余りをrとしたとき、
 #「aとbの最大公約数」は「bとrの最大公約数」に等しい
 
-def gcd(n, m): # GreatestCommonDivisor(最大公約数)
-    
-    if n >= m:
-        while m != 0:
-            n = m
-            m %= n
-        return n
-    elif n < m:
-        while n != 0:
-            m = n
-            n %= m
-        return m
+def gcd(num1, num2):
+    '''GreatestCommonDivisor(最大公約数)'''
+    if num1 >= num2:
+        while num2 != 0:
+            num1 = num2
+            num2 %= num1
+        return num1
+    elif num1 < num2:
+        while num1 != 0:
+            num2 = num1
+            num1 %= num2
+        return num2
 
 get = input("自然数を2つ入力してください \n")
-nums = list(map(int, get.split()))
+a, b = map(int, get.split())
 
-print(gcd(nums[0], nums[1]))
+print(gcd(a, b))
