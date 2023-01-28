@@ -11,25 +11,28 @@ for i in data:
     print(os.access(i, os.F_OK))
 
 #↓一覧から「book」という名前のディレクトリを探すプログラム
+def search_for_depth(get_dir, name):
+    '''1, 深さ優先探索'''
+    for j in os.listdir(get_dir):
 
-#1, 深さ優先探索
-# def search_for_depth(dir, name):
-#     for i in os.listdir(dir):
-#         if i == name:
-#             print(dir + i)
-#         if os.path.isdir(dir + i):
-#             if os.access(dir + i, os.R_OK):
-#                 search_for_depth(dir + i + '/', name)
-# search_for_depth('/', 'book')
+        if j == name:
+            print(get_dir + j)
+
+        if os.path.isdir(get_dir + j):
+            if os.access(get_dir + j, os.R_OK):
+                search_for_depth(get_dir + j + '/', name)
+search_for_depth('/', 'book')
 
 #2, 幅優先探索
-# queue = ['/']
+queue = ['/']
 
-# while len(queue) > 0:
-#     dir = queue.pop()
-#     for i in os.listdir(dir):
-#         if i == 'book':
-#             print(dir + '/')
-#         if os.path.isdir(dir + i):
-#             if os.access(dir + i, os.R_OK):
-#                 queue.append(dir + i + '/')
+while len(queue) > 0:
+    get = queue.pop()
+
+    for i in os.listdir(get):
+        if i == 'book':
+            print(get + '/')
+
+        if os.path.isdir(get + i):
+            if os.access(get + i, os.R_OK):
+                queue.append(get + i + '/')
