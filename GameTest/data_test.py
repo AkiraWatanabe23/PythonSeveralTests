@@ -4,13 +4,13 @@ files = {'イチゴ':'strawberry.txt', 'オレンジ':'orange.txt', 'ブドウ':
 data = {}
 
 for i in files:
-    name = files[i]
-    file = open(name, 'r')
+    name = files.items()
+    file = open(str(name), 'r', encoding='UTF-8')
 
     data[i] = file.read()
     file.close()
 
 for out in data:
     print(f"[{out}]")
-    print(data[out])
+    print(data.items())
     print()
