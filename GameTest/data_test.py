@@ -10,8 +10,12 @@ for i in files:
     # data[i] = file.read()
     # file.close()
     name = files.items()
-    with open(str(name), 'r', encoding='UTF-8') as file:
-        data[i] = file.read()
+    try:
+        with open(str(name), 'r', encoding='UTF-8') as file:
+            data[i] = file.read()
+    except FileNotFoundError:
+        print("指定したファイルが見つかりませんでした")
+
 
 for out in data:
     print(f"[{out}]")
