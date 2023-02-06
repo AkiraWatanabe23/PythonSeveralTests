@@ -12,14 +12,11 @@ for k, v in files.items():
     try:
         with open(str(v), 'r', encoding='UTF-8') as file:
             data[k] = file.read()
-            print(f"[{k}]")
-            print(data[k])
-            print()
     except FileNotFoundError:
         print("指定したファイルが見つかりませんでした")
 
 
-# for out in data:
-#     print(f"[{out}]")
-#     print(data.values())
-#     print()
+for k in data.items():
+    print(f"[{k}]")
+    print(data[k])
+    print()
