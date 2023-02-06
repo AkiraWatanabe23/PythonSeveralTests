@@ -115,16 +115,16 @@ class TicTacToe:
     #以下のように、アンダースコアと大文字のみで変数を宣言すると、その変数は自動的に「定数(constant)」になる
     _CONDITION_POSITIONS: List[_ConditionPositions] = [
         #横のライン
-        (Position(0), Position(1), Position(2)), 
-        (Position(3), Position(4), Position(5)), 
-        (Position(6), Position(7), Position(8)), 
+        (Position(0), Position(1), Position(2)),
+        (Position(3), Position(4), Position(5)),
+        (Position(6), Position(7), Position(8)),
         #縦のライン
-        (Position(0), Position(3), Position(6)), 
-        (Position(1), Position(4), Position(7)), 
-        (Position(2), Position(5), Position(8)), 
+        (Position(0), Position(3), Position(6)),
+        (Position(1), Position(4), Position(7)),
+        (Position(2), Position(5), Position(8)),
         #斜めのライン
-        (Position(0), Position(4), Position(8)), 
-        (Position(2), Position(4), Position(6)), 
+        (Position(0), Position(4), Position(8)),
+        (Position(2), Position(4), Position(6)),
     ]
 
     #以下は勝利判定用の処理
