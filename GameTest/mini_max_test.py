@@ -32,7 +32,7 @@ class Position:
     #マスのインデックスを扱う
     #index: int...対象のインデックス(0~8)
     def __init__(self, index: int) -> None:
-        index_range: List[int] = list(range(0, 9))
+        index_range = list(range(9))
         #範囲外が指定された場合
         if index not in index_range:
             raise ValueError(f'指定されたインデックスが範囲外の値です : {index}')
@@ -65,19 +65,19 @@ class TicTacToe:
         self.marks = marks
 
     def set_new_mark_and_change_turn(self, position: Position) -> TicTacToe:
-        '''選んだマスに〇 or × のマークを設定する'''
+        '''選んだマスに〇 or x のマークを設定する'''
 
-        current_mark: Mark = self.marks[position.index]
+        current_mark = self.marks[position.index]
         #選択したマスがEmptyではなかったら(既に埋まっていたら)
         if current_mark != Mark.E:
             raise ValueError('対象のマスにはすでにマークがあります')
 
         #「copy, deepcopy」...List等の変更可能なオブジェクトを「値渡し」で参照したい場合に使うもの
-        new_marks: List[Mark] = deepcopy(self.marks)
+        new_marks = deepcopy(self.marks)
         new_marks[position.index] = self._turn
         #↓ここでターンの切り替えを行う
-        new_turn: Mark = self._turn.get_opponent()
-        new_tic_tac_toe: TicTacToe = TicTacToe(turn=new_turn, marks=new_marks)
+        new_turn = self._turn.get_opponent()
+        new_tic_tac_toe = TicTacToe(turn=new_turn, marks=new_marks)
         return new_tic_tac_toe
 
     def get_empty_positions(self) -> List[Position]:
@@ -100,7 +100,7 @@ class TicTacToe:
         #parameter...position: Position...判定対象の位置
 
         #空のマスのListを取得
-        empty_positions: List[Position] = self.get_empty_positions()
+        empty_positions = self.get_empty_positions()
 
         #もし選択したマスが空だったらそのマスに置くことができる
         if position in empty_positions:
@@ -113,7 +113,7 @@ class TicTacToe:
     #勝利条件に当てはまるラインの通りは以下のうちのどれかである
     _ConditionPositions = Tuple[Position, Position, Position]
     #以下のように、アンダースコアと大文字のみで変数を宣言すると、その変数は自動的に「定数(constant)」になる
-    _CONDITION_POSITIONS: List[_ConditionPositions] = [
+    _CONDITION_POSITIONS = [
         #横のライン
         (Position(0), Position(1), Position(2)),
         (Position(3), Position(4), Position(5)),
@@ -150,7 +150,7 @@ class TicTacToe:
         for condition_position in self._CONDITION_POSITIONS:
             #以下の「\」は、1行では書ききれない長い行を改行する時に
             #次の行の内容も同じ行の処理であることを示す記号
-            condition_satisfied: bool = \
+            condition_satisfied = \
                 self.is_condition_satisfied_positions(
                     condition_positions=condition_position,
                     target_mark=mark)
@@ -188,7 +188,7 @@ class TicTacToe:
     def is_draw(self) -> bool:
         '''引き分けかどうか'''
 
-        empty_position_num: int = len(self.get_empty_positions())
+        empty_position_num = len(self.get_empty_positions())
         if self.is_player_win:
             return False
         if self.is_ai_win:
