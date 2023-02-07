@@ -10,8 +10,8 @@ for k, v in files.items():
     # data[k] = file.read()
     # file.close()
     try:
-        with open(str(v), 'r', encoding='UTF-8') as file:
-            data[k] = file.read()
+        with open(str(v), 'r', encoding='UTF-8') as f:
+            data[k] = f.read()
     except FileNotFoundError:
         print("指定したファイルが見つかりませんでした")
 
