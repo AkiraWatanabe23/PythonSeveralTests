@@ -4,7 +4,8 @@ from random import choice
 #単語リスト(開始時にこの中からランダムに選ぶ)
 words = ["above", "adult", "adapt", "brave", "build",
          "crime", "drive", "entry", "empty", "giant",
-         "point", "snake", "unity"]
+         "point", "snake", "unity", "slime", "false",
+         "earth", "mouse", "horse", "smart", "clean"]
 
 def check(ans) -> bool:
     '''入力が答えと合っているか判定'''
