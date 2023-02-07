@@ -15,7 +15,5 @@ for k, v in files.items():
     except FileNotFoundError:
         print("指定したファイルが見つかりませんでした")
 
-for k in data.items():
     print(f"[{k}]")
-    print(data[k])
-    print()
+    print(f"{data[k]}\n")
