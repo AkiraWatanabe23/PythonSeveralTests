@@ -5,7 +5,8 @@ from random import choice
 words = ["above", "adult", "adapt", "brave", "build",
          "crime", "drive", "entry", "empty", "giant",
          "point", "snake", "unity", "slime", "false",
-         "earth", "mouse", "horse", "smart", "clean"]
+         "earth", "mouse", "horse", "smart", "clean",
+         "shift", "space", "enter", "sweat", "berry"]
 
 def check(ans) -> bool:
     '''入力が答えと合っているか判定'''
