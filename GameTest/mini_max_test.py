@@ -7,14 +7,11 @@ from copy import deepcopy
 class Mark(Enum):
     '''〇×ゲーム(TicTacToe)のマークを管理するクラス
        Markクラスに、列挙型(enum)を継承している'''
-    # O...〇(Player)
-    # X...×(AI)
-    # E...empty(空)
 
     #↓ゲーム内で必要なマークをEnumで管理
-    O = 'o'
-    X = 'x'
-    E = ' '
+    O = 'o' # O...〇(Player)
+    X = 'x' # X...×(AI)
+    E = ' ' # E...empty(空)
 
     def get_opponent(self) -> Mark:
         '''ターンを切り替える関数'''
@@ -112,7 +109,7 @@ class TicTacToe:
     #勝利判定のためのタプル
     #勝利条件に当てはまるラインの通りは以下のうちのどれかである
     _ConditionPositions = Tuple[Position, Position, Position]
-    #以下のように、アンダースコアと大文字のみで変数を宣言すると、その変数は自動的に「定数(constant)」になる
+    #以下のように、アンダースコアと大文字のみで変数を宣言すると、その変数は「定数(constant)」になる
     _CONDITION_POSITIONS = [
         #横のライン
         (Position(0), Position(1), Position(2)),
@@ -332,15 +329,15 @@ def minimax(
     #最大化する場合のケース(AI側)
     if maximizing:
         maximized_evaluation_value = get_maximized_evaluation_value(
-            current_tic_tac_toe = current_tic_tac_toe,
-            remaining_depth = remaining_depth,
+            current_tic_tac_toe=current_tic_tac_toe,
+            remaining_depth=remaining_depth,
         )
         return maximized_evaluation_value
 
     #最小化する場合のケース(Player側)
     minimized_evaluation_value = get_minimized_evaluation_value(
-        current_tic_tac_toe = current_tic_tac_toe,
-        remaining_depth = remaining_depth,
+        current_tic_tac_toe=current_tic_tac_toe,
+        remaining_depth=remaining_depth,
     )
     return minimized_evaluation_value
 
@@ -353,7 +350,7 @@ def find_best_position(
     '''空いているマスの中で、最も良い位置をMiniMaxで算出する
        空いているマスそれぞれにMiniMaxを実行し、評価値が最大のマスが返却される'''
     #parameter...current_tic_tac_toe : TicTacToe...対象の現在の(盤面の状態の)〇×ゲームのインスタンス
-    #            max_depth : int...探索の木の最大の深さ
+    #            max_depth : int...探索の木の最大の深さ(何手先まで調べるか)
 
     best_evaluation_value = -1
     empty_positions = \
@@ -368,9 +365,9 @@ def find_best_position(
                 position=empty_position)
 
         evaluation_value = minimax(
-            current_tic_tac_toe = current_loop_tic_tac_toe,
-            maximizing = False,
-            remaining_depth = max_depth)
+            current_tic_tac_toe=current_loop_tic_tac_toe,
+            maximizing=False,
+            remaining_depth=max_depth)
 
         if evaluation_value <= best_evaluation_value:
             continue
@@ -378,9 +375,9 @@ def find_best_position(
         best_position = empty_position
     return best_position, best_evaluation_value
     #return Position
-    #算出されたベストな位置
+    #算出された最適な位置
     #return int
-    #ベストな位置における評価値の最大値(-1, 0, 1 のいずれか)
+    #最適な位置における評価値の最大値(-1, 0, 1 のいずれか)
 
 def get_player_input_position(current_tic_tac_toe: TicTacToe) -> Position:
     '''Playerの入力値を取得するための関数'''
